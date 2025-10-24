@@ -73,6 +73,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(nullable: true)]
     private ?DateTimeImmutable $updatedAt = null;
 
+    #[ORM\Column(nullable: false)]
+    private ?string $email = null;
+
     public function __construct()
     {
         $this->diplomas = new ArrayCollection();
@@ -360,5 +363,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         }
         
 
+    }
+
+    /**
+     * Get the value of email
+     */
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    /**
+     * Set the value of email
+     */
+    public function setEmail(?string $email): self
+    {
+        $this->email = $email;
+
+        return $this;
     }
 }
