@@ -1,0 +1,32 @@
+<?php
+
+namespace App\Controller;
+
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+
+final class SecurityController extends AbstractController
+{
+    #[Route('/login ', name: 'login')]
+    public function login(AuthenticationUtils $authenticationUtils): Response
+    {
+        // Récupére la dernière erreur de connexion
+        $error = $authenticationUtils->GetLastAuthenticationError();
+
+        // Récupére le dernier nom d'utilisateur saisi
+        $lastUsername = $authenticationUtils->getLastUsername();
+
+        // Rend la vue de connexion avec le dernier nom d'utilisateur saisi et l'erreur de connexion
+
+        return $this->render('security/login.html.twig', [
+            'last_username' => $lastUsername,
+            'error' => $error,
+        ]);
+    }
+
+    
+
+
+}
