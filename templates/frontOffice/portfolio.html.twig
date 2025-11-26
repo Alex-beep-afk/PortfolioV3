@@ -1,0 +1,206 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Portfolio - {{ user.firstName }} {{ user.lastName }}{% endblock %}
+
+{% block body %}
+<div class="min-h-screen bg-linear-to-br from-slate-900 via-purple-900 to-slate-900 text-white relative overflow-hidden">
+    <!-- Effets de fond animés -->
+    <div class="absolute inset-0 overflow-hidden pointer-events-none">
+        <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan-500/20 rounded-full blur-3xl animate-pulse"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        <div class="absolute top-1/2 left-1/2 w-96 h-96 bg-pink-500/20 rounded-full blur-3xl animate-pulse delay-2000"></div>
+    </div>
+
+    <div class="relative z-10 container mx-auto px-4 py-12">
+        <!-- En-tête -->
+        <header class="mb-16 text-center">
+            <div class="inline-block mb-6">
+                <h1 class="text-6xl font-bold mb-4 bg-linear-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent animate-pulse">
+                    {{ user.firstName }} {{ user.lastName }}
+                </h1>
+                <div class="h-1 w-full bg-linear-to-r from-cyan-500 via-purple-500 to-pink-500 rounded-full"></div>
+            </div>
+            {% if user.email %}
+            <p class="text-xl text-gray-300 mt-4">{{ user.email }}</p>
+            {% endif %}
+        </header>
+
+        <!-- Section Diplômes -->
+        <section class="mb-16">
+            <div class="flex items-center mb-8">
+                <h2 class="text-4xl font-bold text-cyan-400 mr-4">Diplômes</h2>
+                <div class="flex-1 h-px bg-linear-to-r from-cyan-500 to-transparent"></div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {% for diploma in user.diplomas %}
+                <div class="group relative">
+                    <div class="absolute -inset-0.5 bg-linear-to-r from-cyan-500 via-purple-500 to-pink-500 rounded-2xl blur opacity-20 group-hover:opacity-40 transition duration-300"></div>
+                    <div class="relative backdrop-blur-xl bg-white/10 rounded-2xl p-6 border border-white/20 hover:border-cyan-400/50 transition-all duration-300 hover:shadow-[0_0_30px_rgba(34,211,238,0.5)] hover:scale-105">
+                        <div class="flex items-start justify-between mb-4">
+                            <div>
+                                <h3 class="text-2xl font-bold text-cyan-300 mb-2">{{ diploma.title }}</h3>
+                                <p class="text-purple-300 font-semibold">{{ diploma.school }}</p>
+                                {% if diploma.city %}
+                                <p class="text-gray-400 text-sm mt-1">📍 {{ diploma.city }}</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2 text-sm text-gray-300">
+                            <span class="px-3 py-1 bg-cyan-500/20 rounded-full border border-cyan-400/30">
+                                {{ diploma.dateStart|date('Y') }}
+                            </span>
+                            {% if diploma.dateEnd %}
+                            <span class="text-gray-400">→</span>
+                            <span class="px-3 py-1 bg-purple-500/20 rounded-full border border-purple-400/30">
+                                {{ diploma.dateEnd|date('Y') }}
+                            </span>
+                            {% else %}
+                            <span class="px-3 py-1 bg-green-500/20 rounded-full border border-green-400/30">
+                                En cours
+                            </span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% else %}
+                <div class="col-span-full text-center py-12 backdrop-blur-xl bg-white/5 rounded-2xl border border-white/10">
+                    <p class="text-gray-400 text-lg">Aucun diplôme enregistré</p>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+
+        <!-- Section Expériences -->
+        <section class="mb-16">
+            <div class="flex items-center mb-8">
+                <h2 class="text-4xl font-bold text-purple-400 mr-4">Expériences</h2>
+                <div class="flex-1 h-px bg-linear-to-r from-purple-500 to-transparent"></div>
+            </div>
+            
+            <div class="space-y-6">
+                {% for experience in user.experiences %}
+                <div class="group relative">
+                    <div class="absolute -inset-0.5 bg-linear-to-r from-purple-500 via-pink-500 to-cyan-500 rounded-2xl blur opacity-20 group-hover:opacity-40 transition duration-300"></div>
+                    <div class="relative backdrop-blur-xl bg-white/10 rounded-2xl p-8 border border-white/20 hover:border-purple-400/50 transition-all duration-300 hover:shadow-[0_0_30px_rgba(168,85,247,0.5)] hover:scale-[1.02]">
+                        <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
+                            <div class="flex-1">
+                                <h3 class="text-3xl font-bold text-purple-300 mb-3 group-hover:text-purple-200 transition-colors">
+                                    {{ experience.title }}
+                                </h3>
+                                {% if experience.business %}
+                                <p class="text-xl text-cyan-300 mb-2">{{ experience.business }}</p>
+                                {% endif %}
+                                {% if experience.city %}
+                                <p class="text-gray-400 mb-4">📍 {{ experience.city }}</p>
+                                {% endif %}
+                                {% if experience.description %}
+                                <p class="text-gray-300 leading-relaxed">{{ experience.description }}</p>
+                                {% endif %}
+                            </div>
+                            <div class="flex flex-col items-end gap-2">
+                                <div class="flex items-center gap-2">
+                                    <span class="px-4 py-2 bg-purple-500/20 rounded-full border border-purple-400/30 text-sm font-semibold">
+                                        {{ experience.dateStart|date('M Y') }}
+                                    </span>
+                                    {% if experience.dateEnd %}
+                                    <span class="text-gray-400">→</span>
+                                    <span class="px-4 py-2 bg-pink-500/20 rounded-full border border-pink-400/30 text-sm font-semibold">
+                                        {{ experience.dateEnd|date('M Y') }}
+                                    </span>
+                                    {% else %}
+                                    <span class="px-4 py-2 bg-green-500/20 rounded-full border border-green-400/30 text-sm font-semibold">
+                                        Actuel
+                                    </span>
+                                    {% endif %}
+                                </div>
+                                {% if experience.dateEnd %}
+                                {% set duration = experience.dateEnd.diff(experience.dateStart) %}
+                                <span class="text-xs text-gray-400">
+                                    {{ duration.y }} an(s) {{ duration.m }} mois
+                                </span>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% else %}
+                <div class="text-center py-12 backdrop-blur-xl bg-white/5 rounded-2xl border border-white/10">
+                    <p class="text-gray-400 text-lg">Aucune expérience enregistrée</p>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+
+        <!-- Section Projets -->
+        <section class="mb-16">
+            <div class="flex items-center mb-8">
+                <h2 class="text-4xl font-bold text-pink-400 mr-4">Projets</h2>
+                <div class="flex-1 h-px bg-linear-to-r from-pink-500 to-transparent"></div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {% for project in user.projects %}
+                <div class="group relative">
+                    <div class="absolute -inset-0.5 bg-linear-to-r from-pink-500 via-purple-500 to-cyan-500 rounded-2xl blur opacity-20 group-hover:opacity-40 transition duration-300"></div>
+                    <div class="relative backdrop-blur-xl bg-white/10 rounded-2xl p-6 border border-white/20 hover:border-pink-400/50 transition-all duration-300 hover:shadow-[0_0_30px_rgba(236,72,153,0.5)] hover:scale-105 h-full flex flex-col">
+                        {% if project.customerName %}
+                        <div class="mb-4">
+                            <span class="inline-block px-3 py-1 bg-pink-500/20 rounded-full border border-pink-400/30 text-xs font-semibold text-pink-300">
+                                {{ project.customerName }}
+                            </span>
+                        </div>
+                        {% endif %}
+                        
+                        <h3 class="text-2xl font-bold text-pink-300 mb-4 group-hover:text-pink-200 transition-colors">
+                            Projet #{{ project.id }}
+                        </h3>
+                        
+                        {% if project.description %}
+                        <p class="text-gray-300 mb-4 flex-1 leading-relaxed">{{ project.description }}</p>
+                        {% endif %}
+                        
+                        {% if project.dificulties %}
+                        <div class="mb-4">
+                            <p class="text-sm text-gray-400 mb-2">Défis rencontrés :</p>
+                            <p class="text-gray-300 text-sm">{{ project.dificulties }}</p>
+                        </div>
+                        {% endif %}
+                        
+                        {% if project.technos|length > 0 %}
+                        <div class="mb-4">
+                            <p class="text-sm text-gray-400 mb-2">Technologies :</p>
+                            <div class="flex flex-wrap gap-2">
+                                {% for techno in project.technos %}
+                                <span class="px-3 py-1 bg-cyan-500/20 rounded-full border border-cyan-400/30 text-xs text-cyan-300">
+                                    {{ techno.name }}
+                                </span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        {% endif %}
+                        
+                        {% if project.linkToProject %}
+                        <div class="mt-auto pt-4">
+                            <a href="{{ project.linkToProject }}" target="_blank" rel="noopener noreferrer" 
+                               class="inline-flex items-center gap-2 px-4 py-2 bg-linear-to-r from-pink-500 to-purple-500 rounded-lg font-semibold hover:from-pink-600 hover:to-purple-600 transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_rgba(236,72,153,0.6)]">
+                                <span>Voir le projet</span>
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                                </svg>
+                            </a>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                {% else %}
+                <div class="col-span-full text-center py-12 backdrop-blur-xl bg-white/5 rounded-2xl border border-white/10">
+                    <p class="text-gray-400 text-lg">Aucun projet enregistré</p>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+    </div>
+</div>
+{% endblock %}
+

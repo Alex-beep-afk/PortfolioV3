@@ -28,6 +28,9 @@ class Project
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $linkToProject = null;
 
+    #[ORM\ManyToOne(inversedBy: 'projects')]
+    private ?User $user = null;
+
     /**
      * @var Collection<int, Techno>
      */
@@ -120,6 +123,17 @@ class Project
     public function removeTechno(Techno $techno): static
     {
         $this->technos->removeElement($techno);
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
         return $this;
     }
 }
