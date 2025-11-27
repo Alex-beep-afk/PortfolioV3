@@ -1,0 +1,219 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Dashboard - Administration{% endblock %}
+
+{% block body %}
+<main class="min-h-screen" style="background: linear-gradient(to bottom right, #0f172a, #1e293b);">
+    <!-- Page Header -->
+    <header class="bg-gray-900/80 border-b border-cyan-500/30 backdrop-blur-sm" style="box-shadow: 0 4px 20px rgba(6, 182, 212, 0.2);">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <div>
+                <h1 class="text-3xl font-bold text-cyan-400" style="text-shadow: 0 0 20px rgba(6, 182, 212, 0.8);">Tableau de bord</h1>
+                <p class="mt-1 text-sm text-gray-400">Gérez vos ressources portfolio</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Resources Section -->
+        <section aria-label="Ressources du portfolio">
+            <h2 class="sr-only">Ressources disponibles</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                
+                <!-- Experiences Card -->
+                <article class="bg-gray-800/50 rounded-xl border border-cyan-500/30 overflow-hidden backdrop-blur-sm transition-all duration-300 hover:border-cyan-400/50 group" style="box-shadow: 0 4px 20px rgba(6, 182, 212, 0.2);">
+                    <header class="p-6" style="background: linear-gradient(135deg, rgba(59, 130, 246, 0.3), rgba(37, 99, 235, 0.3)); border-bottom: 1px solid rgba(6, 182, 212, 0.3);">
+                        <div class="flex items-center justify-between">
+                            <div class="bg-white/10 rounded-lg p-3" style="box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);">
+                                <svg class="w-8 h-8 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                                </svg>
+                            </div>
+                            <span class="text-cyan-400/80 text-sm font-medium" style="text-shadow: 0 0 10px rgba(6, 182, 212, 0.6);">Expériences</span>
+                        </div>
+                    </header>
+                    <div class="p-6">
+                        <h3 class="text-lg font-semibold text-cyan-400 mb-2" style="text-shadow: 0 0 10px rgba(6, 182, 212, 0.6);">Gérer les expériences</h3>
+                        <p class="text-sm text-gray-400 mb-4">Ajoutez et modifiez vos expériences professionnelles</p>
+                        <nav class="flex flex-col space-y-2" aria-label="Actions expériences">
+                            <a href="{{ path('experiences.index') }}" class="w-full inline-flex items-center justify-center px-4 py-2 bg-cyan-600/50 text-cyan-300 rounded-lg font-medium hover:bg-cyan-600/70 transition-all duration-300 border border-cyan-500/50 hover:border-cyan-400 neon-button">
+                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+                                </svg>
+                                Voir toutes
+                            </a>
+                            <a href="{{ path('experiences.new') }}" class="w-full inline-flex items-center justify-center px-4 py-2 bg-gray-700/50 text-cyan-400 rounded-lg font-medium hover:bg-gray-700 transition-all duration-300 border border-cyan-500/30 hover:border-cyan-400/50">
+                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                                </svg>
+                                Ajouter
+                            </a>
+                        </nav>
+                    </div>
+                </article>
+
+                <!-- Diplomas Card -->
+                <article class="bg-gray-800/50 rounded-xl border border-purple-500/30 overflow-hidden backdrop-blur-sm transition-all duration-300 hover:border-purple-400/50 group opacity-75" style="box-shadow: 0 4px 20px rgba(168, 85, 247, 0.2);">
+                    <header class="p-6" style="background: linear-gradient(135deg, rgba(168, 85, 247, 0.3), rgba(147, 51, 234, 0.3)); border-bottom: 1px solid rgba(168, 85, 247, 0.3);">
+                        <div class="flex items-center justify-between">
+                            <div class="bg-white/10 rounded-lg p-3" style="box-shadow: 0 0 15px rgba(168, 85, 247, 0.4);">
+                                <svg class="w-8 h-8 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14v9M4.5 12.75l6.5 3.5M19.5 12.75l-6.5 3.5"></path>
+                                </svg>
+                            </div>
+                            <span class="text-purple-400/80 text-sm font-medium" style="text-shadow: 0 0 10px rgba(168, 85, 247, 0.6);">Diplômes</span>
+                        </div>
+                    </header>
+                    <div class="p-6">
+                        <h3 class="text-lg font-semibold text-purple-400 mb-2" style="text-shadow: 0 0 10px rgba(168, 85, 247, 0.6);">Gérer les diplômes</h3>
+                        <p class="text-sm text-gray-400 mb-4">Ajoutez et modifiez vos formations et diplômes</p>
+                        <div class="flex flex-col space-y-2">
+                            <button disabled class="w-full inline-flex items-center justify-center px-4 py-2 bg-gray-700/30 text-gray-500 rounded-lg font-medium cursor-not-allowed border border-gray-700" aria-disabled="true">
+                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+                                </svg>
+                                Voir toutes
+                            </button>
+                            <button disabled class="w-full inline-flex items-center justify-center px-4 py-2 bg-gray-700/20 text-gray-600 rounded-lg font-medium cursor-not-allowed border border-gray-700" aria-disabled="true">
+                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                                </svg>
+                                Ajouter
+                            </button>
+                        </div>
+                        <p class="text-xs text-gray-500 mt-2 text-center">Bientôt disponible</p>
+                    </div>
+                </article>
+
+                <!-- Techno Card -->
+                <article class="bg-gray-800/50 rounded-xl border border-green-500/30 overflow-hidden backdrop-blur-sm transition-all duration-300 hover:border-green-400/50 group opacity-75" style="box-shadow: 0 4px 20px rgba(34, 197, 94, 0.2);">
+                    <header class="p-6" style="background: linear-gradient(135deg, rgba(34, 197, 94, 0.3), rgba(22, 163, 74, 0.3)); border-bottom: 1px solid rgba(34, 197, 94, 0.3);">
+                        <div class="flex items-center justify-between">
+                            <div class="bg-white/10 rounded-lg p-3" style="box-shadow: 0 0 15px rgba(34, 197, 94, 0.4);">
+                                <svg class="w-8 h-8 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+                                </svg>
+                            </div>
+                            <span class="text-green-400/80 text-sm font-medium" style="text-shadow: 0 0 10px rgba(34, 197, 94, 0.6);">Technologies</span>
+                        </div>
+                    </header>
+                    <div class="p-6">
+                        <h3 class="text-lg font-semibold text-green-400 mb-2" style="text-shadow: 0 0 10px rgba(34, 197, 94, 0.6);">Gérer les technologies</h3>
+                        <p class="text-sm text-gray-400 mb-4">Ajoutez et modifiez vos compétences techniques</p>
+                        <div class="flex flex-col space-y-2">
+                            <button disabled class="w-full inline-flex items-center justify-center px-4 py-2 bg-gray-700/30 text-gray-500 rounded-lg font-medium cursor-not-allowed border border-gray-700" aria-disabled="true">
+                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+                                </svg>
+                                Voir toutes
+                            </button>
+                            <button disabled class="w-full inline-flex items-center justify-center px-4 py-2 bg-gray-700/20 text-gray-600 rounded-lg font-medium cursor-not-allowed border border-gray-700" aria-disabled="true">
+                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                                </svg>
+                                Ajouter
+                            </button>
+                        </div>
+                        <p class="text-xs text-gray-500 mt-2 text-center">Bientôt disponible</p>
+                    </div>
+                </article>
+
+                <!-- Project Card -->
+                <article class="bg-gray-800/50 rounded-xl border border-orange-500/30 overflow-hidden backdrop-blur-sm transition-all duration-300 hover:border-orange-400/50 group opacity-75" style="box-shadow: 0 4px 20px rgba(249, 115, 22, 0.2);">
+                    <header class="p-6" style="background: linear-gradient(135deg, rgba(249, 115, 22, 0.3), rgba(234, 88, 12, 0.3)); border-bottom: 1px solid rgba(249, 115, 22, 0.3);">
+                        <div class="flex items-center justify-between">
+                            <div class="bg-white/10 rounded-lg p-3" style="box-shadow: 0 0 15px rgba(249, 115, 22, 0.4);">
+                                <svg class="w-8 h-8 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+                                </svg>
+                            </div>
+                            <span class="text-orange-400/80 text-sm font-medium" style="text-shadow: 0 0 10px rgba(249, 115, 22, 0.6);">Projets</span>
+                        </div>
+                    </header>
+                    <div class="p-6">
+                        <h3 class="text-lg font-semibold text-orange-400 mb-2" style="text-shadow: 0 0 10px rgba(249, 115, 22, 0.6);">Gérer les projets</h3>
+                        <p class="text-sm text-gray-400 mb-4">Ajoutez et modifiez vos projets réalisés</p>
+                        <div class="flex flex-col space-y-2">
+                            <button disabled class="w-full inline-flex items-center justify-center px-4 py-2 bg-gray-700/30 text-gray-500 rounded-lg font-medium cursor-not-allowed border border-gray-700" aria-disabled="true">
+                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+                                </svg>
+                                Voir toutes
+                            </button>
+                            <button disabled class="w-full inline-flex items-center justify-center px-4 py-2 bg-gray-700/20 text-gray-600 rounded-lg font-medium cursor-not-allowed border border-gray-700" aria-disabled="true">
+                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                                </svg>
+                                Ajouter
+                            </button>
+                        </div>
+                        <p class="text-xs text-gray-500 mt-2 text-center">Bientôt disponible</p>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+        <!-- Statistics Section -->
+        <section class="mt-8" aria-label="Statistiques du portfolio">
+            <h2 class="sr-only">Statistiques</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <article class="bg-gray-800/50 rounded-xl border border-cyan-500/30 p-6 backdrop-blur-sm" style="box-shadow: 0 4px 20px rgba(6, 182, 212, 0.2);">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm font-medium text-gray-400">Expériences</p>
+                            <p class="text-2xl font-bold text-cyan-400 mt-2" aria-label="Nombre d'expériences" style="text-shadow: 0 0 15px rgba(6, 182, 212, 0.8);">-</p>
+                        </div>
+                        <div class="bg-cyan-500/20 rounded-lg p-3" style="box-shadow: 0 0 15px rgba(6, 182, 212, 0.4);" aria-hidden="true">
+                            <svg class="w-6 h-6 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                            </svg>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="bg-gray-800/50 rounded-xl border border-purple-500/30 p-6 backdrop-blur-sm" style="box-shadow: 0 4px 20px rgba(168, 85, 247, 0.2);">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm font-medium text-gray-400">Diplômes</p>
+                            <p class="text-2xl font-bold text-purple-400 mt-2" aria-label="Nombre de diplômes" style="text-shadow: 0 0 15px rgba(168, 85, 247, 0.8);">-</p>
+                        </div>
+                        <div class="bg-purple-500/20 rounded-lg p-3" style="box-shadow: 0 0 15px rgba(168, 85, 247, 0.4);" aria-hidden="true">
+                            <svg class="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"></path>
+                            </svg>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="bg-gray-800/50 rounded-xl border border-orange-500/30 p-6 backdrop-blur-sm" style="box-shadow: 0 4px 20px rgba(249, 115, 22, 0.2);">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm font-medium text-gray-400">Projets</p>
+                            <p class="text-2xl font-bold text-orange-400 mt-2" aria-label="Nombre de projets" style="text-shadow: 0 0 15px rgba(249, 115, 22, 0.8);">-</p>
+                        </div>
+                        <div class="bg-orange-500/20 rounded-lg p-3" style="box-shadow: 0 0 15px rgba(249, 115, 22, 0.4);" aria-hidden="true">
+                            <svg class="w-6 h-6 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+                            </svg>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+    </div>
+</main>
+
+<style>
+    .neon-button {
+        box-shadow: 0 0 10px rgba(6, 182, 212, 0.3);
+    }
+    
+    .neon-button:hover {
+        box-shadow: 0 0 20px rgba(6, 182, 212, 0.6), 0 0 30px rgba(6, 182, 212, 0.4);
+    }
+</style>
+{% endblock %}

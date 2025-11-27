@@ -1,0 +1,158 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Expériences - Administration{% endblock %}
+
+{% block body %}
+<main class="min-h-screen" style="background: linear-gradient(to bottom right, #0f172a, #1e293b);">
+    <!-- Page Header -->
+    <header class="bg-gray-900/80 border-b border-cyan-500/30 backdrop-blur-sm" style="box-shadow: 0 4px 20px rgba(6, 182, 212, 0.2);">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="text-3xl font-bold text-cyan-400" style="text-shadow: 0 0 20px rgba(6, 182, 212, 0.8);">Expériences</h1>
+                    <p class="mt-1 text-sm text-gray-400">Gérez vos expériences professionnelles</p>
+                </div>
+                <a href="{{ path('experiences.new') }}" class="inline-flex items-center px-4 py-2 border rounded-lg text-sm font-medium text-cyan-400 bg-gray-800/50 hover:bg-gray-800 transition-all duration-300 border-cyan-500/50 hover:border-cyan-400 neon-button">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                    </svg>
+                    Ajouter une expérience
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Experiences Section -->
+        {% if experiences|length > 0 %}
+        <section aria-label="Liste des expériences">
+            <h2 class="sr-only">Vos expériences professionnelles</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {% for experience in experiences %}
+                <article class="bg-gray-800/50 rounded-xl border border-cyan-500/30 overflow-hidden backdrop-blur-sm transition-all duration-300 hover:border-cyan-400/50 group" style="box-shadow: 0 4px 20px rgba(6, 182, 212, 0.2);">
+                    <!-- Card Header -->
+                    <header class="p-6" style="background: linear-gradient(135deg, rgba(6, 182, 212, 0.2), rgba(168, 85, 247, 0.2)); border-bottom: 1px solid rgba(6, 182, 212, 0.3);">
+                        <div class="flex items-start justify-between">
+                            <div class="flex-1">
+                                <h3 class="text-xl font-bold text-cyan-400 mb-2 group-hover:text-cyan-300 transition-colors" style="text-shadow: 0 0 10px rgba(6, 182, 212, 0.6);">
+                                    {{ experience.title }}
+                                </h3>
+                                {% if experience.business %}
+                                <p class="text-sm text-purple-400 font-medium mb-1">
+                                    <svg class="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                                    </svg>
+                                    {{ experience.business }}
+                                </p>
+                                {% endif %}
+                            </div>
+                            <div class="ml-4 p-2 rounded-lg" style="background: rgba(6, 182, 212, 0.2); box-shadow: 0 0 10px rgba(6, 182, 212, 0.3);">
+                                <svg class="w-6 h-6 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                                </svg>
+                            </div>
+                        </div>
+                    </header>
+
+                    <!-- Card Body -->
+                    <div class="p-6">
+                        <!-- Date Range -->
+                        <div class="mb-4 flex items-center text-sm text-gray-300">
+                            <svg class="w-4 h-4 mr-2 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                            </svg>
+                            <span class="text-cyan-400 font-medium">
+                                {{ experience.dateStart|date('M Y') }}
+                            </span>
+                            <span class="mx-2 text-gray-500">-</span>
+                            <span class="text-cyan-400 font-medium">
+                                {% if experience.dateEnd %}
+                                    {{ experience.dateEnd|date('M Y') }}
+                                {% else %}
+                                    <span class="text-green-400" style="text-shadow: 0 0 10px rgba(34, 197, 94, 0.6);">En cours</span>
+                                {% endif %}
+                            </span>
+                        </div>
+
+                        <!-- Location -->
+                        {% if experience.city %}
+                        <div class="mb-4 flex items-center text-sm text-gray-300">
+                            <svg class="w-4 h-4 mr-2 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            </svg>
+                            <span class="text-purple-400">{{ experience.city }}</span>
+                        </div>
+                        {% endif %}
+
+                        <!-- Description -->
+                        {% if experience.description %}
+                        <p class="text-sm text-gray-400 mb-4 line-clamp-3">
+                            {{ experience.description }}
+                        </p>
+                        {% endif %}
+
+                        <!-- Actions -->
+                        <nav class="flex items-center space-x-2 pt-4 border-t border-gray-700" aria-label="Actions expérience">
+                            <a href="{{ path('experiences.edit', {id: experience.id}) }}" class="flex-1 inline-flex items-center justify-center px-3 py-2 text-sm font-medium text-cyan-400 bg-gray-700/50 hover:bg-gray-700 rounded-lg border border-cyan-500/30 hover:border-cyan-400 transition-all duration-300" style="box-shadow: 0 0 10px rgba(6, 182, 212, 0.2);">
+                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                                </svg>
+                                Modifier
+                            </a>
+                            <form method="post" action="{{ path('experiences.delete', {id: experience.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette expérience ?');" class="flex-1">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ experience.id) }}">
+                                <button type="submit" class="w-full inline-flex items-center justify-center px-3 py-2 text-sm font-medium text-red-400 bg-gray-700/50 hover:bg-gray-700 rounded-lg border border-red-500/30 hover:border-red-400 transition-all duration-300" style="box-shadow: 0 0 10px rgba(239, 68, 68, 0.2);">
+                                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                                    </svg>
+                                    Supprimer
+                                </button>
+                            </form>
+                        </nav>
+                    </div>
+                </article>
+                {% endfor %}
+            </div>
+        </section>
+        {% else %}
+        <!-- Empty State -->
+        <section class="text-center py-16" aria-label="Aucune expérience">
+            <div class="max-w-md mx-auto">
+                <div class="mb-6 inline-flex items-center justify-center w-20 h-20 rounded-full" style="background: linear-gradient(135deg, rgba(6, 182, 212, 0.2), rgba(168, 85, 247, 0.2)); box-shadow: 0 0 30px rgba(6, 182, 212, 0.4);">
+                    <svg class="w-10 h-10 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                    </svg>
+                </div>
+                <h2 class="text-2xl font-bold text-cyan-400 mb-2" style="text-shadow: 0 0 20px rgba(6, 182, 212, 0.6);">Aucune expérience</h2>
+                <p class="text-gray-400 mb-6">Commencez par ajouter votre première expérience professionnelle</p>
+                <a href="{{ path('experiences.new') }}" class="inline-flex items-center px-6 py-3 text-base font-medium text-cyan-400 bg-gray-800/50 hover:bg-gray-800 rounded-lg border border-cyan-500/50 hover:border-cyan-400 transition-all duration-300 neon-button">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                    </svg>
+                    Ajouter une expérience
+                </a>
+            </div>
+        </section>
+        {% endif %}
+    </div>
+</main>
+
+<style>
+    .neon-button {
+        box-shadow: 0 0 10px rgba(6, 182, 212, 0.3);
+    }
+    
+    .neon-button:hover {
+        box-shadow: 0 0 20px rgba(6, 182, 212, 0.6), 0 0 30px rgba(6, 182, 212, 0.4);
+    }
+    
+    .line-clamp-3 {
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+</style>
+{% endblock %}
