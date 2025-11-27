@@ -11,6 +11,7 @@ final class UserDashboardController extends AbstractController
     #[Route('/user/dashboard', name: 'user.dashboard')]
     public function index(): Response
     {
+        
         return $this->render('backOffice/userDashboard.html.twig', [
         ]);
     }
