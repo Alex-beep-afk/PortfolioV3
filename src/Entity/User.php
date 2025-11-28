@@ -166,7 +166,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $data = (array) $this;
         $data["\0".self::class."\0password"] = hash('crc32c', $this->password);
-
+        // Exclure avatarFile de la sérialisation car c'est un UploadedFile non sérialisable
+        unset($data["\0".self::class."\0avatarFile"]);
         return $data;
     }
 

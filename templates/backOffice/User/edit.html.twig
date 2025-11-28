@@ -1,0 +1,172 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier l'utilisateur - Administration{% endblock %}
+
+{% block body %}
+<main class="min-h-screen" style="background: linear-gradient(to bottom right, #0f172a, #1e293b);">
+    <!-- Page Header -->
+    <header class="bg-gray-900/80 border-b border-indigo-500/30 backdrop-blur-sm" style="box-shadow: 0 4px 20px rgba(99, 102, 241, 0.2);">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="text-3xl font-bold text-indigo-400" style="text-shadow: 0 0 20px rgba(99, 102, 241, 0.8);">Modifier l'utilisateur</h1>
+                    <p class="mt-1 text-sm text-gray-400">Modifiez les informations de l'utilisateur</p>
+                </div>
+                <a href="{{ path('user.dashboard') }}" class="inline-flex items-center px-4 py-2 border rounded-lg text-sm font-medium text-gray-300 bg-gray-800/50 hover:bg-gray-800 transition-all duration-300 border-gray-700 hover:border-gray-600">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                    </svg>
+                    Retour
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Form Card -->
+        <section class="bg-gray-800/50 rounded-xl border border-indigo-500/30 backdrop-blur-sm overflow-hidden" style="box-shadow: 0 4px 20px rgba(99, 102, 241, 0.2);">
+            <header class="p-6 border-b border-indigo-500/30" style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(79, 70, 229, 0.2));">
+                <h2 class="text-xl font-bold text-indigo-400" style="text-shadow: 0 0 10px rgba(99, 102, 241, 0.6);">Informations de l'utilisateur</h2>
+            </header>
+            
+            <div class="p-6">
+                {{ form_start(form, {'attr': {'class': 'space-y-6', 'enctype': 'multipart/form-data'}}) }}
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Username -->
+                    <div>
+                        {{ form_label(form.username, null, {'label_attr': {'class': 'block text-sm font-medium text-indigo-400 mb-2'}}) }}
+                        {{ form_widget(form.username, {'attr': {'class': 'w-full px-4 py-2 bg-gray-700/50 border border-indigo-500/30 rounded-lg text-gray-300 placeholder-gray-500 focus:outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-400/50 transition-all', 'style': 'box-shadow: 0 0 10px rgba(99, 102, 241, 0.1);'}}) }}
+                        {{ form_errors(form.username) }}
+                    </div>
+
+                    <!-- Email -->
+                    <div>
+                        {{ form_label(form.email, null, {'label_attr': {'class': 'block text-sm font-medium text-cyan-400 mb-2'}}) }}
+                        {{ form_widget(form.email, {'attr': {'class': 'w-full px-4 py-2 bg-gray-700/50 border border-cyan-500/30 rounded-lg text-gray-300 placeholder-gray-500 focus:outline-none focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/50 transition-all', 'style': 'box-shadow: 0 0 10px rgba(6, 182, 212, 0.1);'}}) }}
+                        {{ form_errors(form.email) }}
+                    </div>
+
+                    <!-- First Name -->
+                    <div>
+                        {{ form_label(form.firstName, null, {'label_attr': {'class': 'block text-sm font-medium text-purple-400 mb-2'}}) }}
+                        {{ form_widget(form.firstName, {'attr': {'class': 'w-full px-4 py-2 bg-gray-700/50 border border-purple-500/30 rounded-lg text-gray-300 placeholder-gray-500 focus:outline-none focus:border-purple-400 focus:ring-2 focus:ring-purple-400/50 transition-all', 'style': 'box-shadow: 0 0 10px rgba(168, 85, 247, 0.1);'}}) }}
+                        {{ form_errors(form.firstName) }}
+                    </div>
+
+                    <!-- Last Name -->
+                    <div>
+                        {{ form_label(form.lastName, null, {'label_attr': {'class': 'block text-sm font-medium text-green-400 mb-2'}}) }}
+                        {{ form_widget(form.lastName, {'attr': {'class': 'w-full px-4 py-2 bg-gray-700/50 border border-green-500/30 rounded-lg text-gray-300 placeholder-gray-500 focus:outline-none focus:border-green-400 focus:ring-2 focus:ring-green-400/50 transition-all', 'style': 'box-shadow: 0 0 10px rgba(34, 197, 94, 0.1);'}}) }}
+                        {{ form_errors(form.lastName) }}
+                    </div>
+
+                    <!-- Phone -->
+                    <div>
+                        {{ form_label(form.phone, null, {'label_attr': {'class': 'block text-sm font-medium text-orange-400 mb-2'}}) }}
+                        {{ form_widget(form.phone, {'attr': {'class': 'w-full px-4 py-2 bg-gray-700/50 border border-orange-500/30 rounded-lg text-gray-300 placeholder-gray-500 focus:outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-400/50 transition-all', 'style': 'box-shadow: 0 0 10px rgba(249, 115, 22, 0.1);'}}) }}
+                        {{ form_errors(form.phone) }}
+                    </div>
+
+                    <!-- Password -->
+                    <div>
+                        {{ form_label(form.password, null, {'label_attr': {'class': 'block text-sm font-medium text-indigo-400 mb-2'}}) }}
+                        {{ form_widget(form.password, {'attr': {'class': 'w-full px-4 py-2 bg-gray-700/50 border border-indigo-500/30 rounded-lg text-gray-300 placeholder-gray-500 focus:outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-400/50 transition-all', 'style': 'box-shadow: 0 0 10px rgba(99, 102, 241, 0.1);'}}) }}
+                        <p class="mt-1 text-xs text-gray-500">Laissez vide pour ne pas modifier le mot de passe</p>
+                        {{ form_errors(form.password) }}
+                    </div>
+
+                    <!-- Roles -->
+                    {% if form.roles is defined %}
+                    <div class="md:col-span-2">
+                        {{ form_label(form.roles, null, {'label_attr': {'class': 'block text-sm font-medium text-indigo-400 mb-2'}}) }}
+                        {{ form_widget(form.roles, {'attr': {'class': 'w-full px-4 py-2 bg-gray-700/50 border border-indigo-500/30 rounded-lg text-gray-300 focus:outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-400/50 transition-all', 'style': 'box-shadow: 0 0 10px rgba(99, 102, 241, 0.1);'}}) }}
+                        {{ form_errors(form.roles) }}
+                    </div>
+                    {% endif %}
+
+                    <!-- Themes -->
+                    {% if form.themes is defined %}
+                    <div class="md:col-span-2">
+                        {{ form_label(form.themes, null, {'label_attr': {'class': 'block text-sm font-medium text-cyan-400 mb-2'}}) }}
+                        {{ form_widget(form.themes, {'attr': {'class': 'w-full px-4 py-2 bg-gray-700/50 border border-cyan-500/30 rounded-lg text-gray-300 placeholder-gray-500 focus:outline-none focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/50 transition-all', 'style': 'box-shadow: 0 0 10px rgba(6, 182, 212, 0.1);'}}) }}
+                        <p class="mt-1 text-xs text-gray-500">Séparez les thèmes par des virgules</p>
+                        {{ form_errors(form.themes) }}
+                    </div>
+                    {% endif %}
+
+                    <!-- Avatar File -->
+                    {% if form.avatarFile is defined %}
+                    <div class="md:col-span-2">
+                        {{ form_label(form.avatarFile, null, {'label_attr': {'class': 'block text-sm font-medium text-purple-400 mb-2'}}) }}
+                        <div class="mt-2 flex items-center space-x-4">
+                            {% if form.vars.value.avatarName %}
+                            <div class="shrink-0">
+                                <img src="{{ vich_uploader_asset(form.vars.value, 'avatarFile') }}" alt="Avatar actuel" class="h-20 w-20 rounded-full object-cover border-2 border-purple-500/30" style="box-shadow: 0 0 15px rgba(168, 85, 247, 0.3);">
+                            </div>
+                            {% endif %}
+                            <div class="flex-1">
+                                {{ form_widget(form.avatarFile.file, {'attr': {'class': 'w-full px-4 py-2 bg-gray-700/50 border border-purple-500/30 rounded-lg text-gray-300 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-purple-600/50 file:text-purple-300 hover:file:bg-purple-600/70 focus:outline-none focus:border-purple-400 focus:ring-2 focus:ring-purple-400/50 transition-all', 'style': 'box-shadow: 0 0 10px rgba(168, 85, 247, 0.1);'}}) }}
+                                {% if form.avatarFile.delete is defined %}
+                                    <div class="mt-2 flex items-center">
+                                        {{ form_widget(form.avatarFile.delete, {'attr': {'class': 'rounded border-purple-500/30 bg-gray-700/50 text-purple-400 focus:ring-purple-400'}}) }}
+                                        {{ form_label(form.avatarFile.delete, null, {'label_attr': {'class': 'ml-2 text-sm text-gray-400'}}) }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {# Masquer la grande prévisualisation automatique de VichImageType #}
+                        <style>
+                            .vich-image img:not(.h-20) {
+                                display: none !important;
+                            }
+                        </style>
+                        {{ form_errors(form.avatarFile) }}
+                    </div>
+                    {% endif %}
+                </div>
+
+                <!-- Form Actions -->
+                <nav class="flex items-center justify-end space-x-4 pt-6 border-t border-gray-700" aria-label="Actions du formulaire">
+                    <a href="{{ path('user.dashboard') }}" class="px-6 py-2 text-sm font-medium text-gray-400 bg-gray-700/50 hover:bg-gray-700 rounded-lg border border-gray-700 hover:border-gray-600 transition-all duration-300">
+                        Annuler
+                    </a>
+                    <button type="submit" class="px-6 py-2 text-sm font-medium text-indigo-400 bg-indigo-600/50 hover:bg-indigo-600/70 rounded-lg border border-indigo-500/50 hover:border-indigo-400 transition-all duration-300 neon-button">
+                        <svg class="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        Enregistrer les modifications
+                    </button>
+                </nav>
+
+                {{ form_end(form) }}
+            </div>
+        </section>
+    </div>
+</main>
+
+<style>
+    .neon-button {
+        box-shadow: 0 0 10px rgba(99, 102, 241, 0.3);
+    }
+    
+    .neon-button:hover {
+        box-shadow: 0 0 20px rgba(99, 102, 241, 0.6), 0 0 30px rgba(99, 102, 241, 0.4);
+    }
+
+    /* Style pour les erreurs de formulaire */
+    .form-error {
+        color: #ef4444;
+        font-size: 0.875rem;
+        margin-top: 0.25rem;
+        text-shadow: 0 0 10px rgba(239, 68, 68, 0.6);
+    }
+
+    /* Style pour les champs en focus */
+    input:focus, textarea:focus, select:focus {
+        box-shadow: 0 0 15px rgba(99, 102, 241, 0.3) !important;
+    }
+</style>
+{% endblock %}
+

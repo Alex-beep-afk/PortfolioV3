@@ -5,8 +5,9 @@ namespace App\Form;
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 use Vich\UploaderBundle\Form\Type\VichImageType;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
 class UserType extends AbstractType
 {
@@ -17,7 +18,15 @@ class UserType extends AbstractType
             ->add('lastName')
             ->add('firstName')
             ->add('phone')
-            ->add('password')
+            ->add('password', PasswordType::class, [
+                'label' => 'Mot de passe',
+                'required' => false,
+                'mapped' => false,
+                'attr' => [
+                    'autocomplete' => 'new-password',
+                ],
+                'help'=> 'Laissez vide si vous ne voulez pas modifier le mot de passe',
+            ])
             ->add('avatarFile', VichImageType::class, [
                 'required' => false,
                 'download_uri' => false,
