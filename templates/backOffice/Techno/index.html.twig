@@ -61,12 +61,12 @@
 
                     <!-- Card Body -->
                     <div class="p-6">
-                        <!-- Image Preview -->
+                        {# <!-- Image Preview -->
                         {% if techno.technoImageName %}
                         <div class="mb-4 flex justify-center">
                             <img src="{{ vich_uploader_asset(techno, 'technoImageFile') }}" alt="{{ techno.name }}" class="w-full h-32 object-contain rounded-lg border border-emerald-500/30" style="background: rgba(16, 185, 129, 0.1);">
                         </div>
-                        {% endif %}
+                        {% endif %} #}
 
                         <!-- Projects Count -->
                         {% if techno.projects|length > 0 %}

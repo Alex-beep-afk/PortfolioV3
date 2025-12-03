@@ -4,10 +4,10 @@
             class="fixed top-20 right-4 z-50 max-w-md w-full animate-slide-in" 
             role="alert" 
             aria-live="polite"
-            data-controller="flash-message-controller"
+            data-controller="flashmessage"
             data-flash-message-duration-value="5000"
             data-flash-message-auto-close-value="true"
-            data-action="mouseenter->flash-message#pause mouseleave->flash-message#resume"
+            data-action="mouseenter->flashmessage#pause mouseleave->flashmessage#resume"
         >
             <div class="p-4 rounded-lg border backdrop-blur-sm transition-all duration-300 {% if label == 'success' %}bg-green-900/30 border-green-500/50 text-green-400{% elseif label == 'error' %}bg-red-900/30 border-red-500/50 text-red-400{% elseif label == 'warning' %}bg-yellow-900/30 border-yellow-500/50 text-yellow-400{% elseif label == 'info' %}bg-blue-900/30 border-blue-500/50 text-blue-400{% else %}bg-gray-900/30 border-gray-500/50 text-gray-400{% endif %}" style="box-shadow: 0 0 20px {% if label == 'success' %}rgba(34, 197, 94, 0.4){% elseif label == 'error' %}rgba(239, 68, 68, 0.4){% elseif label == 'warning' %}rgba(234, 179, 8, 0.4){% elseif label == 'info' %}rgba(59, 130, 246, 0.4){% else %}rgba(107, 114, 128, 0.4){% endif %};">
                 <div class="flex items-start">
@@ -40,7 +40,7 @@
                     <button 
                         type="button" 
                         class="ml-4 shrink-0 text-gray-400 hover:text-gray-300 focus:outline-none transition-colors" 
-                        data-action="click->flash-message#close"
+                        data-action="click->flashmessage#close"
                         aria-label="Fermer"
                     >
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">

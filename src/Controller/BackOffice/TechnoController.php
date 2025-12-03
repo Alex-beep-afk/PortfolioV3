@@ -45,17 +45,19 @@ final class TechnoController extends AbstractController{
         ]);
     }
 
-    #[Route('edit/{id}', name: 'techno.edit', methods: ['GET', 'POST'])]
+    #[Route('/edit/{id}', name: 'techno.edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Techno $techno): Response{
+
         $form = $this->createForm(TechnoFormType::class, $techno);
         $form->handleRequest($request);
+
         if($form->isSubmitted() && $form->isValid()){
             $this->em->flush();
             $this->addFlash('success', 'Techno modifiée avec succès');
             return $this->redirectToRoute('techno.index');
         }
-        return $this->render('backoffice/techno/show.html.twig',[
-            'techno' => $techno
+        return $this->render('backoffice/techno/edit.html.twig',[
+            'form' => $form
         ]);
     }
 
