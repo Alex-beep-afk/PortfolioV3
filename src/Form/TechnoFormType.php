@@ -2,12 +2,11 @@
 
 namespace App\Form;
 
-use App\Entity\Project;
 use App\Entity\Techno;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class TechnoFormType extends AbstractType
 {
@@ -15,11 +14,14 @@ class TechnoFormType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('projects', EntityType::class, [
-                'class' => Project::class,
-                'choice_label' => 'id',
-                'multiple' => true,
+            ->add('technoImageFile', VichImageType::class, [
+                'required' => false,
+                'download_uri' => false,
+                'image_uri' => true,
+                'asset_helper' => true,
+                'label' => 'Image de la technologie',
             ])
+          
         ;
     }
 
