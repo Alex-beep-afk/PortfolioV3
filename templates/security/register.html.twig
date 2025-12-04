@@ -20,7 +20,7 @@
             </header>
             
             <div class="p-6">
-                {{ form_start(form, {'attr': {'class': 'space-y-6', 'novalidate': 'novalidate'}}) }}
+                {{ form_start(form, {'attr': {'class': 'space-y-6', 'novalidate': 'novalidate', 'data-controller': 'register'}}) }}
                 
                 <!-- Username Field -->
                 <div>
@@ -34,8 +34,10 @@
                     {{ form_widget(form.username, {'attr': {
                         'class': 'w-full px-4 py-3 bg-gray-700/50 border border-cyan-500/30 rounded-lg text-gray-300 placeholder-gray-500 focus:outline-none focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/50 transition-all',
                         'style': 'box-shadow: 0 0 10px rgba(6, 182, 212, 0.1);',
-                        'placeholder': 'Choisissez un pseudo'
+                        'placeholder': 'Choisissez un pseudo',
+                        'data-register-target': 'usernameInput'
                     }}) }}
+                    <div data-register-target="usernameError"></div>
                     {% if form.username.vars.errors|length > 0 %}
                         <div class="mt-2 bg-red-500/20 border border-red-500/50 rounded-lg p-3" style="box-shadow: 0 0 10px rgba(239, 68, 68, 0.3);">
                             <div class="flex items-center">
@@ -61,8 +63,10 @@
                         {{ form_widget(form.firstName, {'attr': {
                             'class': 'w-full px-4 py-3 bg-gray-700/50 border border-purple-500/30 rounded-lg text-gray-300 placeholder-gray-500 focus:outline-none focus:border-purple-400 focus:ring-2 focus:ring-purple-400/50 transition-all',
                             'style': 'box-shadow: 0 0 10px rgba(168, 85, 247, 0.1);',
-                            'placeholder': 'Votre prénom'
+                            'placeholder': 'Votre prénom',
+                            'data-register-target': 'firstnameInput'
                         }}) }}
+                        <div data-register-target="firstnameError"></div>
                         {% if form.firstName.vars.errors|length > 0 %}
                             <div class="mt-2 bg-red-500/20 border border-red-500/50 rounded-lg p-3" style="box-shadow: 0 0 10px rgba(239, 68, 68, 0.3);">
                                 <div class="flex items-center">
@@ -86,8 +90,10 @@
                         {{ form_widget(form.lastName, {'attr': {
                             'class': 'w-full px-4 py-3 bg-gray-700/50 border border-purple-500/30 rounded-lg text-gray-300 placeholder-gray-500 focus:outline-none focus:border-purple-400 focus:ring-2 focus:ring-purple-400/50 transition-all',
                             'style': 'box-shadow: 0 0 10px rgba(168, 85, 247, 0.1);',
-                            'placeholder': 'Votre nom'
+                            'placeholder': 'Votre nom',
+                            'data-register-target': 'lastnameInput'
                         }}) }}
+                        <div data-register-target="lastnameError"></div>
                         {% if form.lastName.vars.errors|length > 0 %}
                             <div class="mt-2 bg-red-500/20 border border-red-500/50 rounded-lg p-3" style="box-shadow: 0 0 10px rgba(239, 68, 68, 0.3);">
                                 <div class="flex items-center">
@@ -113,8 +119,10 @@
                     {{ form_widget(form.email, {'attr': {
                         'class': 'w-full px-4 py-3 bg-gray-700/50 border border-emerald-500/30 rounded-lg text-gray-300 placeholder-gray-500 focus:outline-none focus:border-emerald-400 focus:ring-2 focus:ring-emerald-400/50 transition-all',
                         'style': 'box-shadow: 0 0 10px rgba(16, 185, 129, 0.1);',
-                        'placeholder': 'votre.email@exemple.com'
+                        'placeholder': 'votre.email@exemple.com',
+                        'data-register-target': 'emailInput'
                     }}) }}
+                    <div data-register-target="emailError"></div>
                     {% if form.email.vars.errors|length > 0 %}
                         <div class="mt-2 bg-red-500/20 border border-red-500/50 rounded-lg p-3" style="box-shadow: 0 0 10px rgba(239, 68, 68, 0.3);">
                             <div class="flex items-center">
@@ -165,11 +173,13 @@
                     {{ form_widget(form.password, {'attr': {
                         'class': 'w-full px-4 py-3 bg-gray-700/50 border border-cyan-500/30 rounded-lg text-gray-300 placeholder-gray-500 focus:outline-none focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/50 transition-all',
                         'style': 'box-shadow: 0 0 10px rgba(6, 182, 212, 0.1);',
-                        'placeholder': 'Choisissez un mot de passe sécurisé'
+                        'placeholder': 'Choisissez un mot de passe sécurisé',
+                        'data-register-target': 'passwordInput'
                     }}) }}
                     {% if form.password.vars.help %}
                         <p class="mt-1 text-xs text-gray-500">{{ form.password.vars.help }}</p>
                     {% endif %}
+                    <div data-register-target="passwordError"></div>
                     {% if form.password.vars.errors|length > 0 %}
                         <div class="mt-2 bg-red-500/20 border border-red-500/50 rounded-lg p-3" style="box-shadow: 0 0 10px rgba(239, 68, 68, 0.3);">
                             <div class="flex items-center">
@@ -213,7 +223,9 @@
                 <div class="pt-4">
                     <button 
                         type="submit" 
-                        class="w-full px-6 py-4 text-lg font-semibold text-white bg-gradient-to-r from-purple-600 via-cyan-600 to-purple-600 hover:from-purple-500 hover:via-cyan-500 hover:to-purple-500 rounded-lg border border-purple-400/50 hover:border-purple-300 transition-all duration-300 neon-button-register"
+                        class="w-full px-6 py-4 text-lg font-semibold text-white bg-gradient-to-r from-purple-600 via-cyan-600 to-purple-600 rounded-lg border border-purple-400/50 transition-all duration-300 neon-button-register opacity-50 cursor-not-allowed"
+                        data-register-target="submitButton"
+                        disabled
                     >
                         <div class="flex items-center justify-center">
                             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
