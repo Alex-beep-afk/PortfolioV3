@@ -3,30 +3,37 @@
 namespace App\Form;
 
 use App\Entity\Experience;
-use App\Entity\User;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class ExperienceFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('dateStart', null, [
+            ->add('dateStart', DateType::class, [
                 'widget' => 'single_text',
+                'label' => 'Date de début',
             ])
-            ->add('dateEnd', null, [
+            ->add('dateEnd', DateType::class, [
                 'widget' => 'single_text',
+                'label' => 'Date de fin',
             ])
-            ->add('title')
-            ->add('business')
-            ->add('city')
-            ->add('description')
-            ->add('user', EntityType::class, [
-                'class' => User::class,
-                'choice_label' => 'id',
+            ->add('title', TextType::class, [
+                'label' => 'Titre',
+            ])
+            ->add('business', TextType::class, [
+                'label' => 'Entreprise',
+            ])
+            ->add('city', TextType::class, [
+                'label' => 'Ville',
+            ])
+            ->add('description', TextareaType::class, [
+                'label' => 'Description',
             ])
         ;
     }

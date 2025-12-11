@@ -2,11 +2,14 @@
 
 namespace App\Entity;
 
-use App\Repository\ProjectRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-// TODO: Add the other fields -> Technologies used, description, link to the project, image, etc.
+use App\Repository\ProjectRepository;
+use Doctrine\Common\Collections\Collection;
+use Symfony\Component\HttpFoundation\File\File;
+use Doctrine\Common\Collections\ArrayCollection;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+
+#[Vich\Uploadable]
 #[ORM\Entity(repositoryClass: ProjectRepository::class)]
 class Project
 {
@@ -24,6 +27,14 @@ class Project
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $description = null;
 
+    #[Vich\UploadableField(mapping: 'project_image', fileNameProperty: 'projectImageName', size:'projectImageSize')]
+    private ?File $projectImageFile = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?string $projectImageName = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $projectImageSize = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $linkToProject = null;
@@ -134,6 +145,60 @@ class Project
     public function setUser(?User $user): static
     {
         $this->user = $user;
+        return $this;
+    }
+
+    /**
+     * Get the value of projectImageFile
+     */
+    public function getProjectImageFile(): ?File
+    {
+        return $this->projectImageFile;
+    }
+
+    /**
+     * Set the value of projectImageFile
+     */
+    public function setProjectImageFile(?File $projectImageFile): self
+    {
+        $this->projectImageFile = $projectImageFile;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of projectImageName
+     */
+    public function getProjectImageName(): ?string
+    {
+        return $this->projectImageName;
+    }
+
+    /**
+     * Set the value of projectImageName
+     */
+    public function setProjectImageName(?string $projectImageName): self
+    {
+        $this->projectImageName = $projectImageName;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of projectImageSize
+     */
+    public function getProjectImageSize(): ?int
+    {
+        return $this->projectImageSize;
+    }
+
+    /**
+     * Set the value of projectImageSize
+     */
+    public function setProjectImageSize(?int $projectImageSize): self
+    {
+        $this->projectImageSize = $projectImageSize;
+
         return $this;
     }
 }

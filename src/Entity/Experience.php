@@ -2,8 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\ExperienceRepository;
+use Assert\Callback;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\ExperienceRepository;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 #[ORM\Entity(repositoryClass: ExperienceRepository::class)]
 class Experience
@@ -121,5 +124,15 @@ class Experience
         $this->user = $user;
 
         return $this;
+    }
+// TODO: Finaliser la verification de la date de fin et mettre en place les contraintes de validation applicatives pour l'entité Experience
+    #[Assert\Callback]
+    public function validate(ExecutionContextInterface $context): void
+    {
+        if ($this->dateStart > $this->dateEnd) {
+            $context->buildViolation('La date de début doit être antérieure à la date de fin')
+                ->atPath('dateStart')
+                ->addViolation();
+        }
     }
 }

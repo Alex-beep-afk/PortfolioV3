@@ -20,8 +20,10 @@ final class TechnoController extends AbstractController{
 
     #[Route('/', name: 'techno.index', methods: ['GET'])]
     public function index(): Response{
+
         $technos = $this->em->getRepository(Techno::class)->findAll();
-        return $this->render('backoffice/techno/index.html.twig',[
+
+        return $this->render('backOffice/Techno/index.html.twig',[
             'technos' => $technos
         ]);
     }
@@ -40,7 +42,7 @@ final class TechnoController extends AbstractController{
             return $this->redirectToRoute('techno.index');
         }
 
-        return $this->render('backoffice/techno/new.html.twig',[
+        return $this->render('backOffice/Techno/new.html.twig',[
             'form' => $form
         ]);
     }
@@ -56,13 +58,18 @@ final class TechnoController extends AbstractController{
             $this->addFlash('success', 'Techno modifiée avec succès');
             return $this->redirectToRoute('techno.index');
         }
-        return $this->render('backoffice/techno/edit.html.twig',[
+        return $this->render('backOffice/Techno/edit.html.twig',[
             'form' => $form
         ]);
     }
 
+    // TODO: Finaliser la suppression de la techno en verifiant que la techno n'est pas utilisée dans un projet et si c'est le cas, afficher un message d'erreur et ne pas supprimer la techno
+    // TODO: Afficher un message de succès si la techno est supprimée avec succès
+    // TODO: Afficher un message d'erreur si la techno n'est pas supprimée avec succès
+    // TODO: Verifier le token CSRF
     #[Route('delete/{id}', name: 'techno.delete', methods: ['POST'])]
     public function delete(Techno $techno): Response{
+
         $this->em->remove($techno);
         $this->em->flush();
         return $this->redirectToRoute('techno.index');
