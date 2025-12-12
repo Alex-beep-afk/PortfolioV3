@@ -1,0 +1,148 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouveau projet - Administration{% endblock %}
+
+{% block body %}
+<main class="min-h-screen" style="background: linear-gradient(to bottom right, #0f172a, #1e293b);">
+    <!-- Page Header -->
+    <header class="bg-gray-900/80 border-b border-orange-500/30 backdrop-blur-sm" style="box-shadow: 0 4px 20px rgba(249, 115, 22, 0.2);">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="text-3xl font-bold text-orange-400" style="text-shadow: 0 0 20px rgba(249, 115, 22, 0.8);">Nouveau projet</h1>
+                    <p class="mt-1 text-sm text-gray-400">Ajoutez un nouveau projet réalisé</p>
+                </div>
+                <a href="{{ path('project.index') }}" class="inline-flex items-center px-4 py-2 border rounded-lg text-sm font-medium text-gray-300 bg-gray-800/50 hover:bg-gray-800 transition-all duration-300 border-gray-700 hover:border-gray-600">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                    </svg>
+                    Retour
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Form Card -->
+        <section class="bg-gray-800/50 rounded-xl border border-orange-500/30 backdrop-blur-sm overflow-hidden" style="box-shadow: 0 4px 20px rgba(249, 115, 22, 0.2);">
+            <header class="p-6 border-b border-orange-500/30" style="background: linear-gradient(135deg, rgba(249, 115, 22, 0.2), rgba(234, 88, 12, 0.2));">
+                <h2 class="text-xl font-bold text-orange-400" style="text-shadow: 0 0 10px rgba(249, 115, 22, 0.6);">Informations du projet</h2>
+            </header>
+            
+            <div class="p-6">
+                {{ form_start(form, {'attr': {'class': 'space-y-6', 'enctype': 'multipart/form-data'}}) }}
+                
+                {# Champ user caché car défini automatiquement #}
+                {% if form.user is defined %}
+                    {{ form_widget(form.user, {'attr': {'style': 'display: none;'}}) }}
+                {% endif %}
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Customer Name -->
+                    <div class="md:col-span-2">
+                        {{ form_label(form.customerName, null, {'label_attr': {'class': 'block text-sm font-medium text-orange-400 mb-2'}}) }}
+                        {{ form_widget(form.customerName, {'attr': {'class': 'w-full px-4 py-2 bg-gray-700/50 border border-orange-500/30 rounded-lg text-gray-300 placeholder-gray-500 focus:outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-400/50 transition-all', 'placeholder': 'Ex: Entreprise XYZ', 'style': 'box-shadow: 0 0 10px rgba(249, 115, 22, 0.1);'}}) }}
+                        {{ form_errors(form.customerName) }}
+                    </div>
+
+                    <!-- Description -->
+                    <div class="md:col-span-2">
+                        {{ form_label(form.description, null, {'label_attr': {'class': 'block text-sm font-medium text-orange-400 mb-2'}}) }}
+                        {{ form_widget(form.description, {'attr': {'class': 'w-full px-4 py-2 bg-gray-700/50 border border-orange-500/30 rounded-lg text-gray-300 placeholder-gray-500 focus:outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-400/50 transition-all', 'rows': 4, 'placeholder': 'Décrivez votre projet...', 'style': 'box-shadow: 0 0 10px rgba(249, 115, 22, 0.1);'}}) }}
+                        {{ form_errors(form.description) }}
+                    </div>
+
+                    <!-- Link to Project -->
+                    <div class="md:col-span-2">
+                        {{ form_label(form.linkToProject, null, {'label_attr': {'class': 'block text-sm font-medium text-cyan-400 mb-2'}}) }}
+                        {{ form_widget(form.linkToProject, {'attr': {'class': 'w-full px-4 py-2 bg-gray-700/50 border border-cyan-500/30 rounded-lg text-gray-300 placeholder-gray-500 focus:outline-none focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/50 transition-all', 'placeholder': 'https://exemple.com', 'style': 'box-shadow: 0 0 10px rgba(6, 182, 212, 0.1);'}}) }}
+                        {{ form_errors(form.linkToProject) }}
+                    </div>
+
+                    <!-- Difficulties -->
+                    <div class="md:col-span-2">
+                        {{ form_label(form.dificulties, null, {'label_attr': {'class': 'block text-sm font-medium text-red-400 mb-2'}}) }}
+                        {{ form_widget(form.dificulties, {'attr': {'class': 'w-full px-4 py-2 bg-gray-700/50 border border-red-500/30 rounded-lg text-gray-300 placeholder-gray-500 focus:outline-none focus:border-red-400 focus:ring-2 focus:ring-red-400/50 transition-all', 'placeholder': 'Les difficultés rencontrées...', 'style': 'box-shadow: 0 0 10px rgba(239, 68, 68, 0.1);'}}) }}
+                        {{ form_errors(form.dificulties) }}
+                    </div>
+
+                    <!-- Project Image File -->
+                    {% if form.projectImageFile is defined %}
+                    <div class="md:col-span-2">
+                        {{ form_label(form.projectImageFile, null, {'label_attr': {'class': 'block text-sm font-medium text-orange-400 mb-2'}}) }}
+                        <div class="mt-2 flex items-center space-x-4">
+                            {% if form.vars.value.projectImageName %}
+                            <div class="shrink-0">
+                                <img src="{{ vich_uploader_asset(form.vars.value, 'projectImageFile') }}" alt="Image actuelle" class="h-20 w-20 rounded-lg object-cover border-2 border-orange-500/30" style="box-shadow: 0 0 15px rgba(249, 115, 22, 0.3);">
+                            </div>
+                            {% endif %}
+                            <div class="flex-1">
+                                {{ form_widget(form.projectImageFile.file, {'attr': {'class': 'w-full px-4 py-2 bg-gray-700/50 border border-orange-500/30 rounded-lg text-gray-300 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-orange-600/50 file:text-orange-300 hover:file:bg-orange-600/70 focus:outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-400/50 transition-all', 'style': 'box-shadow: 0 0 10px rgba(249, 115, 22, 0.1);'}}) }}
+                                {% if form.projectImageFile.delete is defined %}
+                                    <div class="mt-2 flex items-center">
+                                        {{ form_widget(form.projectImageFile.delete, {'attr': {'class': 'rounded border-orange-500/30 bg-gray-700/50 text-orange-400 focus:ring-orange-400'}}) }}
+                                        {{ form_label(form.projectImageFile.delete, null, {'label_attr': {'class': 'ml-2 text-sm text-gray-400'}}) }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <p class="mt-1 text-xs text-gray-500">Format recommandé : PNG, JPG ou WEBP (max 2MB)</p>
+                        {{ form_errors(form.projectImageFile) }}
+                    </div>
+                    {% endif %}
+
+                    <!-- Technos -->
+                    {% if form.technos is defined %}
+                    <div class="md:col-span-2">
+                        {{ form_label(form.technos, null, {'label_attr': {'class': 'block text-sm font-medium text-emerald-400 mb-2'}}) }}
+                        {{ form_widget(form.technos, {'attr': {'class': 'w-full px-4 py-2 bg-gray-700/50 border border-emerald-500/30 rounded-lg text-gray-300 focus:outline-none focus:border-emerald-400 focus:ring-2 focus:ring-emerald-400/50 transition-all', 'style': 'box-shadow: 0 0 10px rgba(16, 185, 129, 0.1);'}}) }}
+                        <p class="mt-1 text-xs text-gray-500">Maintenez Ctrl (ou Cmd sur Mac) pour sélectionner plusieurs technologies</p>
+                        {{ form_errors(form.technos) }}
+                    </div>
+                    {% endif %}
+                </div>
+
+                <!-- Form Actions -->
+                <nav class="flex items-center justify-end space-x-4 pt-6 border-t border-gray-700" aria-label="Actions du formulaire">
+                    <a href="{{ path('project.index') }}" class="px-6 py-2 text-sm font-medium text-gray-400 bg-gray-700/50 hover:bg-gray-700 rounded-lg border border-gray-700 hover:border-gray-600 transition-all duration-300">
+                        Annuler
+                    </a>
+                    <button type="submit" class="px-6 py-2 text-sm font-medium text-orange-400 bg-orange-600/50 hover:bg-orange-600/70 rounded-lg border border-orange-500/50 hover:border-orange-400 transition-all duration-300 neon-button">
+                        <svg class="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        Créer le projet
+                    </button>
+                </nav>
+
+                {{ form_end(form) }}
+            </div>
+        </section>
+    </div>
+</main>
+
+<style>
+    .neon-button {
+        box-shadow: 0 0 10px rgba(249, 115, 22, 0.3);
+    }
+    
+    .neon-button:hover {
+        box-shadow: 0 0 20px rgba(249, 115, 22, 0.6), 0 0 30px rgba(249, 115, 22, 0.4);
+    }
+
+    /* Style pour les erreurs de formulaire */
+    .form-error {
+        color: #ef4444;
+        font-size: 0.875rem;
+        margin-top: 0.25rem;
+        text-shadow: 0 0 10px rgba(239, 68, 68, 0.6);
+    }
+
+    /* Style pour les champs en focus */
+    input:focus, textarea:focus, select:focus {
+        box-shadow: 0 0 15px rgba(249, 115, 22, 0.3) !important;
+    }
+</style>
+{% endblock %}
+

@@ -53,14 +53,14 @@
                     </span>
                 </a>
                 {% endif %}
-                <button disabled class="px-4 py-2 rounded-lg text-sm font-medium text-gray-600 opacity-50 cursor-not-allowed border border-gray-700">
+                <a href="{{ path('project.index') }}" class="px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 {% if 'project' in app.request.attributes.get('_route') %}text-orange-400{% else %}text-gray-300 hover:text-orange-400{% endif %} hover:bg-orange-500/10 border border-transparent hover:border-orange-500/50" style="{% if 'project' in app.request.attributes.get('_route') %}box-shadow: 0 0 15px rgba(249, 115, 22, 0.5), inset 0 0 15px rgba(249, 115, 22, 0.1); border-color: rgba(249, 115, 22, 0.5);{% endif %}">
                     <span class="flex items-center">
                         <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
                         </svg>
                         Projets
                     </span>
-                </button>
+                </a>
             </nav>
             {% endif %}
 
@@ -132,9 +132,9 @@
                     Technologies
                 </a>
                 {% endif %}
-                <button disabled class="block w-full text-left px-3 py-2 rounded-lg text-base font-medium text-gray-600 cursor-not-allowed border border-gray-700">
+                <a href="{{ path('project.index') }}" class="block px-3 py-2 rounded-lg text-base font-medium transition-all duration-300 {% if 'project' in app.request.attributes.get('_route') %}text-orange-400 bg-orange-500/10{% else %}text-gray-300 hover:text-orange-400 hover:bg-orange-500/10{% endif %} border border-transparent {% if 'project' in app.request.attributes.get('_route') %}border-orange-500/50{% else %}hover:border-orange-500/50{% endif %}" style="{% if 'project' in app.request.attributes.get('_route') %}box-shadow: 0 0 10px rgba(249, 115, 22, 0.3);{% endif %}">
                     Projets
-                </button>
+                </a>
             </div>
             <div class="px-2 pt-2 pb-3 border-t border-cyan-500/30">
                 <div class="flex items-center px-3 py-2">

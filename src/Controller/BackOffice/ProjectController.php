@@ -15,7 +15,9 @@ class ProjectController extends AbstractController
 {
     public function __construct(
         private readonly EntityManagerInterface $em
-    ){}
+    ){
+
+    }
     
     #[Route('/', name: 'project.index', methods: ['GET'])]
     public function index(): Response
@@ -24,7 +26,7 @@ class ProjectController extends AbstractController
 
         $projects = $this->em->getRepository(Project::class)->findBy(['user' => $user]);
 
-        return $this->render('backoffice/project/index.html.twig', [
+        return $this->render('backOffice/Project/index.html.twig', [
             'projects' => $projects
         ]);
     }
@@ -46,6 +48,7 @@ class ProjectController extends AbstractController
             $this->addFlash('success', 'Projet enregistré');
             return $this->redirectToRoute('project.index');
         }
+        
         return $this->render('backOffice/Project/new.html.twig', [
             'form' => $form
         ]);
@@ -78,9 +81,20 @@ class ProjectController extends AbstractController
     #[Route('/{id}/delete', name: 'project.delete', methods: ['POST'])]
     public function delete(Request $request, Project $project): Response
     {
-        $this->em->remove($project);
-        $this->em->flush();
-        $this->addFlash('success', 'Projet supprimé');
-        return $this->redirectToRoute('project.index');
+        $user = $this->getUser();
+
+        if ($user !== $project->getUser()) {
+            $this->addFlash('error', 'Cette ressource ne vous appartient pas');
+            return $this->redirectToRoute('project.index');
+        }
+
+        if ($this->isCsrfTokenValid('delete' . $project->getId(), $request->request->get('_token'))) {
+            $this->em->remove($project);
+            $this->em->flush();
+            $this->addFlash('success', 'Projet supprimé avec succès');
+        } else {
+            $this->addFlash('error', 'Token CSRF invalide');
+        }
+            return $this->redirectToRoute('project.index');
     }
 }

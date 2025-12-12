@@ -35,6 +35,7 @@ final class UserDashboardController extends AbstractController
                 $this->addFlash('error', 'Vous ne pouvez pas modifier ce profil');
                 return $this->redirectToRoute('login');
             }
+            
             $form = $this->createForm(UserType::class, $user);
             $form->handleRequest($request);
 

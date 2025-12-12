@@ -1,0 +1,142 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails du projet - Administration{% endblock %}
+
+{% block body %}
+<main class="min-h-screen" style="background: linear-gradient(to bottom right, #0f172a, #1e293b);">
+    <!-- Page Header -->
+    <header class="bg-gray-900/80 border-b border-orange-500/30 backdrop-blur-sm" style="box-shadow: 0 4px 20px rgba(249, 115, 22, 0.2);">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="text-3xl font-bold text-orange-400" style="text-shadow: 0 0 20px rgba(249, 115, 22, 0.8);">
+                        {% if project.customerName %}
+                            {{ project.customerName }}
+                        {% else %}
+                            Projet #{{ project.id }}
+                        {% endif %}
+                    </h1>
+                    <p class="mt-1 text-sm text-gray-400">Détails du projet</p>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <a href="{{ path('project.edit', {id: project.id}) }}" class="inline-flex items-center px-4 py-2 border rounded-lg text-sm font-medium text-orange-400 bg-gray-800/50 hover:bg-gray-800 transition-all duration-300 border-orange-500/50 hover:border-orange-400 neon-button">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                        </svg>
+                        Modifier
+                    </a>
+                    <a href="{{ path('project.index') }}" class="inline-flex items-center px-4 py-2 border rounded-lg text-sm font-medium text-gray-300 bg-gray-800/50 hover:bg-gray-800 transition-all duration-300 border-gray-700 hover:border-gray-600">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                        </svg>
+                        Retour
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Project Details Card -->
+        <section class="bg-gray-800/50 rounded-xl border border-orange-500/30 backdrop-blur-sm overflow-hidden" style="box-shadow: 0 4px 20px rgba(249, 115, 22, 0.2);">
+            <header class="p-6 border-b border-orange-500/30" style="background: linear-gradient(135deg, rgba(249, 115, 22, 0.2), rgba(234, 88, 12, 0.2));">
+                <h2 class="text-xl font-bold text-orange-400" style="text-shadow: 0 0 10px rgba(249, 115, 22, 0.6);">Informations du projet</h2>
+            </header>
+            
+            <div class="p-6 space-y-6">
+                <!-- Project Image -->
+                {% if project.projectImageName %}
+                <div class="flex justify-center">
+                    <img src="{{ vich_uploader_asset(project, 'projectImageFile') }}" alt="Image du projet" class="max-w-full h-auto rounded-lg border-2 border-orange-500/30" style="box-shadow: 0 0 20px rgba(249, 115, 22, 0.3);">
+                </div>
+                {% endif %}
+
+                <!-- Customer Name -->
+                {% if project.customerName %}
+                <div>
+                    <h3 class="text-sm font-medium text-orange-400 mb-2">Nom du client</h3>
+                    <p class="text-gray-300">{{ project.customerName }}</p>
+                </div>
+                {% endif %}
+
+                <!-- Description -->
+                {% if project.description %}
+                <div>
+                    <h3 class="text-sm font-medium text-orange-400 mb-2">Description</h3>
+                    <p class="text-gray-300 whitespace-pre-wrap">{{ project.description }}</p>
+                </div>
+                {% endif %}
+
+                <!-- Link to Project -->
+                {% if project.linkToProject %}
+                <div>
+                    <h3 class="text-sm font-medium text-cyan-400 mb-2">Lien vers le projet</h3>
+                    <a href="{{ project.linkToProject }}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-cyan-400 hover:text-cyan-300 transition-colors">
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                        </svg>
+                        {{ project.linkToProject }}
+                    </a>
+                </div>
+                {% endif %}
+
+                <!-- Difficulties -->
+                {% if project.dificulties %}
+                <div>
+                    <h3 class="text-sm font-medium text-red-400 mb-2">Difficultés rencontrées</h3>
+                    <p class="text-gray-300">{{ project.dificulties }}</p>
+                </div>
+                {% endif %}
+
+                <!-- Technologies -->
+                {% if project.technos|length > 0 %}
+                <div>
+                    <h3 class="text-sm font-medium text-emerald-400 mb-3">Technologies utilisées</h3>
+                    <div class="flex flex-wrap gap-2">
+                        {% for techno in project.technos %}
+                        <span class="inline-flex items-center px-3 py-1 bg-emerald-500/20 text-emerald-400 rounded-lg border border-emerald-500/30 text-sm font-medium" style="box-shadow: 0 0 10px rgba(16, 185, 129, 0.2);">
+                            {% if techno.technoImageName %}
+                                <img src="{{ vich_uploader_asset(techno, 'technoImageFile') }}" alt="{{ techno.name }}" class="w-4 h-4 mr-2 object-contain">
+                            {% endif %}
+                            {{ techno.name }}
+                        </span>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- Actions -->
+                <nav class="flex items-center space-x-3 pt-6 border-t border-gray-700" aria-label="Actions projet">
+                    <a href="{{ path('project.edit', {id: project.id}) }}" class="flex-1 inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-orange-400 bg-orange-600/50 hover:bg-orange-600/70 rounded-lg border border-orange-500/50 hover:border-orange-400 transition-all duration-300 neon-button">
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                        </svg>
+                        Modifier
+                    </a>
+                    <form method="post" action="{{ path('project.delete', {id: project.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce projet ?');" class="flex-1">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ project.id) }}">
+                        <button type="submit" class="w-full inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-red-400 bg-red-600/50 hover:bg-red-600/70 rounded-lg border border-red-500/50 hover:border-red-400 transition-all duration-300" style="box-shadow: 0 0 10px rgba(239, 68, 68, 0.2);">
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                            </svg>
+                            Supprimer
+                        </button>
+                    </form>
+                </nav>
+            </div>
+        </section>
+    </div>
+</main>
+
+<style>
+    .neon-button {
+        box-shadow: 0 0 10px rgba(249, 115, 22, 0.3);
+    }
+    
+    .neon-button:hover {
+        box-shadow: 0 0 20px rgba(249, 115, 22, 0.6), 0 0 30px rgba(249, 115, 22, 0.4);
+    }
+</style>
+{% endblock %}
+

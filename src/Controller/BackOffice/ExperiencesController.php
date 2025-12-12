@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+#[Route('/user/experiences')]
 
 final class ExperiencesController extends AbstractController
 {
@@ -18,7 +19,7 @@ final class ExperiencesController extends AbstractController
     private readonly EntityManagerInterface $em
     ){}
 
-    #[Route('/user/experiences', name: 'experiences.index')]
+    #[Route('/', name: 'experiences.index')]
     public function index(): Response
     {
         $user = $this->getUser();
@@ -29,7 +30,7 @@ final class ExperiencesController extends AbstractController
 
         ]);
     }
-    #[Route('/user/experiences/new', name: 'experiences.new')]
+    #[Route('/new', name: 'experiences.new')]
     public function new(Request $request): Response
     {
         $user = $this->getUser();
@@ -51,7 +52,7 @@ final class ExperiencesController extends AbstractController
         ]);
     }
 
-    #[Route('/user/experiences/{id}/edit', name: 'experiences.edit')]
+    #[Route('/{id}/edit', name: 'experiences.edit')]
     public function edit(Request $request, Experience $experience): Response
     {
         $user = $this->getUser();
@@ -71,10 +72,11 @@ final class ExperiencesController extends AbstractController
             'form' => $form
         ]);
     }
-    #[Route('/user/experiences/{id}/delete', name: 'experiences.delete')]
+    #[Route('/{id}/delete', name: 'experiences.delete')]
     public function delete(Request $request, Experience $experience): Response
     {
         $user = $this->getUser();
+
         if ($user !== $experience->getUser()) {
             $this->addFlash('error', 'Cette ressource ne vous appartient pas');
             return $this->redirectToRoute('experiences.index');
