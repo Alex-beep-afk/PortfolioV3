@@ -194,23 +194,14 @@ input[name="user[avatarFile]"]:focus {
     box-shadow: 0 0 15px rgba(168, 85, 247, 0.3) !important;
 }
 
-/* Masquer les labels Symfony par défaut */
-label {
+/* Masquer les labels Symfony par défaut (seulement ceux générés automatiquement) */
+form label:not([for]):not(.custom-label) {
     display: none;
 }
 
-/* ============================================
-   MENU MOBILE
-   ============================================ */
-
-#mobile-menu-toggle:checked ~ .mobile-menu {
-    display: block !important;
+/* S'assurer que les labels personnalisés sont visibles */
+label[for],
+label.custom-label {
+    display: inline-block;
 }
 
-#mobile-menu-toggle:checked ~ div label .mobile-icon-open {
-    display: none;
-}
-
-#mobile-menu-toggle:checked ~ div label .mobile-icon-close {
-    display: block;
-}

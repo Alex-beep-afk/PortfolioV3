@@ -14,7 +14,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 final class SecurityController extends AbstractController
 {
-    #[Route('/login ', name: 'login')]
+    #[Route('/login', name: 'login')]
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
         // Récupére la dernière erreur de connexion

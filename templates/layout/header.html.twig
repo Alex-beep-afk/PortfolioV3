@@ -1,6 +1,5 @@
-<header class="bg-gray-900 border-b border-cyan-500/30 sticky top-0 z-50" style="box-shadow: 0 4px 20px rgba(6, 182, 212, 0.3);">
+<header class="bg-gray-900 border-b border-cyan-500/30 sticky top-0 z-50" style="box-shadow: 0 4px 20px rgba(6, 182, 212, 0.3);" data-controller="menu-burger">
     <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <input type="checkbox" id="mobile-menu-toggle" class="hidden">
         <div class="flex items-center justify-between h-16">
             <!-- Logo / Brand -->
             <div class="flex items-center">
@@ -83,7 +82,7 @@
                 <!-- Bouton Connexion/Déconnexion -->
                 {% if app.user %}
                     <!-- Bouton Déconnexion -->
-                    <a href="{{ path('_logout_main') }}" class="inline-flex items-center px-4 py-2 border rounded-lg text-sm font-medium text-gray-300 bg-gray-800/50 hover:bg-gray-800 transition-all duration-300 border-cyan-500/50 hover:border-cyan-400 hover:text-cyan-400 neon-button">
+                    <a href="{{ path('_logout_main') }}" data-turbo="false" class="inline-flex items-center px-4 py-2 border rounded-lg text-sm font-medium text-gray-300 bg-gray-800/50 hover:bg-gray-800 transition-all duration-300 border-cyan-500/50 hover:border-cyan-400 hover:text-cyan-400 neon-button">
                         <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
                         </svg>
@@ -103,21 +102,28 @@
 
                 <!-- Mobile menu toggle - Seulement si connecté -->
                 {% if app.user %}
-                <label for="mobile-menu-toggle" class="lg:hidden inline-flex items-center justify-center p-2 rounded-lg text-gray-300 hover:text-cyan-400 hover:bg-cyan-500/10 border border-transparent hover:border-cyan-500/50 cursor-pointer transition-all duration-300">
-                    <svg class="h-6 w-6 mobile-icon-open" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <button 
+                    type="button" 
+                    data-action="click->menu-burger#toggle"
+                    class="md:hidden inline-flex items-center justify-center p-2 rounded-lg text-gray-300 hover:text-cyan-400 hover:bg-cyan-500/10 border border-transparent hover:border-cyan-500/50 cursor-pointer transition-all duration-300"
+                    aria-label="Ouvrir le menu"
+                    aria-expanded="false"
+                    data-menu-burger-target="toggle"
+                >
+                    <svg class="h-6 w-6" data-menu-burger-target="openIcon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                     </svg>
-                    <svg class="h-6 w-6 mobile-icon-close hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg class="h-6 w-6 hidden" data-menu-burger-target="closeIcon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                     </svg>
-                </label>
+                </button>
                 {% endif %}
             </div>
         </div>
 
         <!-- Mobile menu - Seulement si connecté -->
         {% if app.user %}
-        <div class="mobile-menu hidden lg:hidden border-t border-cyan-500/30" style="box-shadow: 0 -4px 20px rgba(6, 182, 212, 0.2);">
+        <div class="hidden md:hidden border-t border-cyan-500/30" data-menu-burger-target="menu">
             <div class="px-2 pt-2 pb-3 space-y-1">
                 <a href="{{ path('user.dashboard') }}" class="block px-3 py-2 rounded-lg text-base font-medium transition-all duration-300 {% if app.request.attributes.get('_route') == 'user.dashboard' %}text-cyan-400 bg-cyan-500/10{% else %}text-gray-300 hover:text-cyan-400 hover:bg-cyan-500/10{% endif %} border border-transparent {% if app.request.attributes.get('_route') == 'user.dashboard' %}border-cyan-500/50{% else %}hover:border-cyan-500/50{% endif %}" style="{% if app.request.attributes.get('_route') == 'user.dashboard' %}box-shadow: 0 0 10px rgba(6, 182, 212, 0.3);{% endif %}">
                     Dashboard

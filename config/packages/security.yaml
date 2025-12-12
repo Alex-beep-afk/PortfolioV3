@@ -14,12 +14,18 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
-            lazy: true
+            lazy: false
             provider: app_user_provider
             form_login:
                 login_path: login
                 check_path: login
                 default_target_path: /user/dashboard
+                always_use_default_target_path: false # Pour éviter que l'utilisateur soit redirigé vers la page de connexion si il est déjà connecté
+            remember_me:
+                secret: '%env(APP_SECRET)%'
+                lifetime: 604800  # 7 jours
+                path: /
+                always_remember_me: false
             logout:
                 path: /logout
                 target: /
