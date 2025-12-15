@@ -11,7 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 final class HomeController extends AbstractController{
 
     public function __construct(
-    private EntityManagerInterface $entityManager
+    private EntityManagerInterface $em,
     )
     {
     }
@@ -21,12 +21,20 @@ final class HomeController extends AbstractController{
     {
         return $this->render('frontOffice/home.html.twig');
     }
-    #[Route('/portfolio/show/{id}', name: 'portfolio.show')]
-    public function portfolioShow(User $user):Response
+
+    #[Route('/portfolio/share/{shareToken}', name: 'portfolio.share')]
+    public function portfolioShare(string $shareToken):Response
     {
-       
+        $user = $this->em->getRepository(User::class)->findOneBy(['shareToken' => $shareToken]);
+
+        if (!$user) {
+            $this->addFlash('error', 'Ce portfolio n\'existe pas ou a été supprimé');
+            return $this->redirectToRoute('home');
+        }
+
         return $this->render('frontOffice/portfolio.html.twig', [
             'user' => $user
         ]);
     }
+    
 }

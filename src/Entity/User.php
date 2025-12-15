@@ -40,6 +40,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 180, nullable: false)]
     private ?string $phone = null;
+
+    #[ORM\Column(length: 64, unique: true, nullable: false)]
+    private ?string $shareToken = null;
     
 
     /**
@@ -468,5 +471,29 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function autoUpdatedAt(): void
     {
         $this->updatedAt = new DateTimeImmutable();
+    }
+
+    /**
+     * Get the value of shareToken
+     */
+    public function getShareToken(): ?string
+    {
+        return $this->shareToken;
+    }
+
+    /**
+     * Set the value of shareToken
+     */
+    public function setShareToken(?string $shareToken): self
+    {
+        $this->shareToken = $shareToken;
+
+        return $this;
+    }
+
+    #[ORM\PrePersist]
+    public function autoGenerateShareToken(): void
+    {
+        $this->shareToken = bin2hex(random_bytes(32));
     }
 }

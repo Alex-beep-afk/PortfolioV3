@@ -29,7 +29,7 @@ class AppFixtures extends Fixture
         $user->setEmail('alexandre.prigent@example.com');
         $user->setPhone('+33612345678');
         $user->setPassword($this->passwordHasher->hashPassword($user, 'password123'));
-        $user->setRoles(['ROLE_USER']);
+        $user->setRoles(['ROLE_USER', 'ROLE_ADMIN']);
         $user->setCreatedAt(new DateTimeImmutable());
         
         $manager->persist($user);

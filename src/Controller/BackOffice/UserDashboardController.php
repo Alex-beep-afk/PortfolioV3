@@ -11,6 +11,7 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
+#[Route('/user')]
 final class UserDashboardController extends AbstractController
 {
     public function __construct(private EntityManagerInterface $em,
@@ -18,7 +19,7 @@ final class UserDashboardController extends AbstractController
     {
     }
 
-    #[Route('/user/dashboard', name: 'user.dashboard')]
+    #[Route('/dashboard', name: 'user.dashboard')]
     public function index(): Response
     {
         
@@ -26,7 +27,7 @@ final class UserDashboardController extends AbstractController
         ]);
     }
 
-    #[Route('/user/edit/{id}', name: 'user.edit')]
+    #[Route('/edit/{id}', name: 'user.edit')]
     public function edit(Request $request , User $user): Response
     {
             $currentUser = $this->getUser();
@@ -53,6 +54,14 @@ final class UserDashboardController extends AbstractController
         
         return $this->render('backOffice/User/edit.html.twig', [
             'form' => $form,
+        ]);
+    }
+    #[Route('/portfolio/show/{id}', name: 'portfolio.show')]
+    public function portfolioShow(User $user):Response
+    {
+       
+        return $this->render('frontOffice/portfolio.html.twig', [
+            'user' => $user
         ]);
     }
 }
