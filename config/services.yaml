@@ -6,6 +6,7 @@
 parameters:
 
 services:
+   
     # default configuration for services in *this* file
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.
@@ -16,5 +17,19 @@ services:
     App\:
         resource: '../src/'
 
+    
+
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+    App\Services\RecaptchaService:
+        arguments:
+            $secretKey: '%env(RECAPTCHA_SECRET_KEY)%'
+
+    App\Controller\Security\SecurityController:
+        arguments:
+            $recaptchaSiteKey: '%env(RECAPTCHA_SITE_KEY)%'
+    
+    App\EventListener\RecaptchaListener:
+        arguments:
+            $recaptchaSiteKey: '%env(RECAPTCHA_SITE_KEY)%'

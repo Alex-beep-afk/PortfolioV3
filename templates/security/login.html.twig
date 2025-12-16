@@ -3,7 +3,8 @@
 {% block title %}Connexion - Portfolio{% endblock %}
 
 {% block body %}
-<main class="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8" style="background: linear-gradient(to bottom right, #0f172a, #1e293b);">
+
+<main class="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8" style="background: linear-gradient(to bottom right, #0f172a, #1e293b);" data-turbo="false">
     <div class="w-full max-w-md">
         <!-- Login Card -->
         <section class="bg-gray-800/50 rounded-xl border border-cyan-500/30 backdrop-blur-sm overflow-hidden" style="box-shadow: 0 4px 20px rgba(6, 182, 212, 0.2);">
@@ -20,7 +21,7 @@
             </header>
             
             <div class="p-6">
-                <form action="{{ path('login') }}" method="post" class="space-y-6">
+                <form action="{{ path('login') }}" method="post" class="space-y-6" >
                     <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
                     {% if error %}
@@ -96,6 +97,11 @@
                         </label>
                     </div>
 
+                    <!-- reCAPTCHA -->
+                    <div class="flex justify-center pt-2">
+                        <div class="g-recaptcha" data-sitekey="{{ recaptcha_site_key }}" data-theme="dark"></div>
+                    </div>
+
                     <!-- Submit Button -->
                     <div class="pt-2">
                         <button 
@@ -122,4 +128,9 @@
         </div>
     </div>
 </main>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 {% endblock %}

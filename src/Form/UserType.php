@@ -80,7 +80,7 @@ class UserType extends AbstractType
                         'message' => 'Le mot de passe est obligatoire',
                     ]),
                     new PasswordStrength([
-                        'minScore' => 4,
+                        'minScore' => 2,
                         'message' => 'Le mot de passe doit contenir au moins 12 caractères, une lettre majuscule, une lettre minuscule, un chiffre et un caractère spécial',
                     ]),
                 ],

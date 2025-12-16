@@ -6,9 +6,6 @@
                 <a href="{% if app.user %}{{ path('user.dashboard') }}{% else %}{{ path('home') }}{% endif %}" class="flex items-center space-x-3 group">
                     <div class="transition-all duration-300 group-hover:scale-105">
                         <img src="/images/Logo.png" alt="Logo Nexus Folio" class="w-10 h-10 rounded-md">
-                        {# <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
-                        </svg> #}
                     </div>
                     <span class="text-xl font-bold tracking-wide neon-text">
                         NEXUS FOLIO
@@ -91,7 +88,7 @@
                     </a>
                 {% else %}
                     <!-- Bouton Connexion -->
-                    <a href="{{ path('login') }}" class="inline-flex items-center px-4 py-2 border rounded-lg text-sm font-medium text-gray-300 bg-gray-800/50 hover:bg-gray-800 transition-all duration-300 border-cyan-500/50 hover:border-cyan-400 hover:text-cyan-400 neon-button">
+                    <a href="{{ path('login') }}" data-turbo="false" class="inline-flex items-center px-4 py-2 border rounded-lg text-sm font-medium text-gray-300 bg-gray-800/50 hover:bg-gray-800 transition-all duration-300 border-cyan-500/50 hover:border-cyan-400 hover:text-cyan-400 neon-button">
                         <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"></path>
                         </svg>

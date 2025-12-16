@@ -33,13 +33,13 @@
                 <!-- CTA Buttons -->
                 <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
                     {% if not app.user %}
-                    <a href="{{ path('register') }}" class="inline-flex items-center px-8 py-4 border rounded-xl text-lg font-semibold text-white bg-gradient-to-r from-cyan-600 to-purple-600 hover:from-cyan-500 hover:to-purple-500 transition-all duration-300 border-cyan-400/50 hover:border-cyan-300 hover:scale-105 neon-button-large">
+                    <a href="{{ path('register') }}" class="inline-flex items-center px-8 py-4 border rounded-xl text-lg font-semibold text-white bg-gradient-to-r from-cyan-600 to-purple-600 hover:from-cyan-500 hover:to-purple-500 transition-all duration-300 border-cyan-400/50 hover:border-cyan-300 hover:scale-105 neon-button-large" data-turbo="false">
                         <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path>
                         </svg>
                         Commencer gratuitement
                     </a>
-                    <a href="{{ path('login') }}" class="inline-flex items-center px-8 py-4 border rounded-xl text-lg font-semibold text-gray-300 bg-gray-800/50 hover:bg-gray-800 transition-all duration-300 border-cyan-500/50 hover:border-cyan-400 hover:text-cyan-400 neon-button">
+                    <a href="{{ path('login') }}" class="inline-flex items-center px-8 py-4 border rounded-xl text-lg font-semibold text-gray-300 bg-gray-800/50 hover:bg-gray-800 transition-all duration-300 border-cyan-500/50 hover:border-cyan-400 hover:text-cyan-400 neon-button" data-turbo="false">
                         <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"></path>
                         </svg>
