@@ -65,8 +65,15 @@ class ProjectController extends AbstractController
     #[Route('/{id}/edit', name: 'project.edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Project $project): Response
     {
+        $user = $this->getUser();
+        if ($user !== $project->getUser()) {
+            $this->addFlash('error', 'Cette ressource ne vous appartient pas');
+            return $this->redirectToRoute('project.index');
+        }
+
         $form = $this->createForm(ProjectFormType::class, $project);
         $form->handleRequest($request);
+        
         if($form->isSubmitted() && $form->isValid()){
             $this->em->flush();
             $this->addFlash('success', 'Projet modifié');

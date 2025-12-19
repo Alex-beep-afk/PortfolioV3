@@ -1,0 +1,154 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Réinitialiser votre mot de passe - Portfolio{% endblock %}
+
+{% block body %}
+
+<main class="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8" style="background: linear-gradient(to bottom right, #0f172a, #1e293b);" data-turbo="false">
+    <div class="w-full max-w-md">
+        <!-- Reset Password Card -->
+        <section class="bg-gray-800/50 rounded-xl border border-purple-500/30 backdrop-blur-sm overflow-hidden" style="box-shadow: 0 4px 20px rgba(168, 85, 247, 0.2);">
+            <header class="p-6 border-b border-purple-500/30" style="background: linear-gradient(135deg, rgba(168, 85, 247, 0.2), rgba(6, 182, 212, 0.2));">
+                <div class="flex items-center justify-center mb-2">
+                    <div class="bg-white/10 rounded-lg p-3" style="box-shadow: 0 0 15px rgba(168, 85, 247, 0.4);">
+                        <svg class="w-8 h-8 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"></path>
+                        </svg>
+                    </div>
+                </div>
+                <h1 class="text-2xl font-bold text-purple-400 text-center" style="text-shadow: 0 0 20px rgba(168, 85, 247, 0.8);">Nouveau mot de passe</h1>
+                <p class="mt-2 text-sm text-gray-400 text-center">Choisissez un nouveau mot de passe sécurisé</p>
+            </header>
+            
+            <div class="p-6">
+                {% for flash_error in app.flashes('reset_password_error') %}
+                    <div class="bg-red-500/20 border border-red-500/50 rounded-lg p-4 mb-4" style="box-shadow: 0 0 10px rgba(239, 68, 68, 0.3);">
+                        <div class="flex items-center">
+                            <svg class="w-5 h-5 text-red-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            <p class="text-sm text-red-400" style="text-shadow: 0 0 10px rgba(239, 68, 68, 0.6);">
+                                {{ flash_error }}
+                            </p>
+                        </div>
+                    </div>
+                {% endfor %}
+
+                {{ form_start(resetForm, {'attr': {'class': 'space-y-6'}}) }}
+                    
+                    <!-- Password Fields -->
+                    <div>
+                        <label for="{{ resetForm.plainPassword.first.vars.id }}" class="block text-sm font-medium text-purple-400 mb-2">
+                            <div class="flex items-center">
+                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                                </svg>
+                                Nouveau mot de passe
+                            </div>
+                        </label>
+                        {{ form_widget(resetForm.plainPassword.first, {
+                            'attr': {
+                                'class': 'w-full px-4 py-3 bg-gray-700/50 border border-purple-500/30 rounded-lg text-gray-300 placeholder-gray-500 focus:outline-none focus:border-purple-400 focus:ring-2 focus:ring-purple-400/50 transition-all',
+                                'style': 'box-shadow: 0 0 10px rgba(168, 85, 247, 0.1);',
+                                'placeholder': 'Entrez votre nouveau mot de passe',
+                                'autocomplete': 'new-password'
+                            }
+                        }) }}
+                        {% if resetForm.plainPassword.first.vars.errors|length > 0 %}
+                            <div class="mt-2 bg-red-500/20 border border-red-500/50 rounded-lg p-3" style="box-shadow: 0 0 10px rgba(239, 68, 68, 0.3);">
+                                <div class="flex items-center">
+                                    <svg class="w-4 h-4 text-red-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                    <div class="text-sm text-red-400">{{ form_errors(resetForm.plainPassword.first) }}</div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div>
+                        <label for="{{ resetForm.plainPassword.second.vars.id }}" class="block text-sm font-medium text-purple-400 mb-2">
+                            <div class="flex items-center">
+                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                                </svg>
+                                Confirmer le mot de passe
+                            </div>
+                        </label>
+                        {{ form_widget(resetForm.plainPassword.second, {
+                            'attr': {
+                                'class': 'w-full px-4 py-3 bg-gray-700/50 border border-purple-500/30 rounded-lg text-gray-300 placeholder-gray-500 focus:outline-none focus:border-purple-400 focus:ring-2 focus:ring-purple-400/50 transition-all',
+                                'style': 'box-shadow: 0 0 10px rgba(168, 85, 247, 0.1);',
+                                'placeholder': 'Confirmez votre nouveau mot de passe',
+                                'autocomplete': 'new-password'
+                            }
+                        }) }}
+                        {% if resetForm.plainPassword.second.vars.errors|length > 0 %}
+                            <div class="mt-2 bg-red-500/20 border border-red-500/50 rounded-lg p-3" style="box-shadow: 0 0 10px rgba(239, 68, 68, 0.3);">
+                                <div class="flex items-center">
+                                    <svg class="w-4 h-4 text-red-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                    <div class="text-sm text-red-400">{{ form_errors(resetForm.plainPassword.second) }}</div>
+                                </div>
+                            </div>
+                        {% endif %}
+                        {% if resetForm.plainPassword.vars.errors|length > 0 %}
+                            <div class="mt-2 bg-red-500/20 border border-red-500/50 rounded-lg p-3" style="box-shadow: 0 0 10px rgba(239, 68, 68, 0.3);">
+                                <div class="flex items-center">
+                                    <svg class="w-4 h-4 text-red-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                    <div class="text-sm text-red-400">{{ form_errors(resetForm.plainPassword) }}</div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Password Requirements Info -->
+                    <div class="bg-purple-500/10 border border-purple-500/30 rounded-lg p-4">
+                        <p class="text-xs text-gray-400 mb-2 font-medium">Exigences du mot de passe :</p>
+                        <ul class="text-xs text-gray-400 space-y-1">
+                            <li class="flex items-center">
+                                <svg class="w-2.5 h-2.5 mr-2 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                Au moins 12 caractères
+                            </li>
+                            <li class="flex items-center">
+                                <svg class="w-2.5 h-2.5 mr-2 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                Force suffisante
+                            </li>
+                            <li class="flex items-center">
+                                <svg class="w-2.5 h-2.5 mr-2 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                Non compromis
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="pt-2">
+                        <button 
+                            type="submit" 
+                            class="w-full px-6 py-3 text-sm font-medium text-purple-400 bg-purple-600/50 hover:bg-purple-600/70 rounded-lg border border-purple-500/50 hover:border-purple-400 transition-all duration-300"
+                            style="box-shadow: 0 0 15px rgba(168, 85, 247, 0.3);"
+                        >
+                            <div class="flex items-center justify-center">
+                                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                Réinitialiser le mot de passe
+                            </div>
+                        </button>
+                    </div>
+
+                {{ form_end(resetForm) }}
+            </div>
+        </section>
+    </div>
+</main>
+{% endblock %}

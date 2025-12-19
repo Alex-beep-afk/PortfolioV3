@@ -37,7 +37,7 @@ final class UserDashboardController extends AbstractController
                 return $this->redirectToRoute('login');
             }
             
-            $form = $this->createForm(UserType::class, $user);
+            $form = $this->createForm(UserType::class, $user, ['register' => false]);
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
@@ -59,6 +59,12 @@ final class UserDashboardController extends AbstractController
     #[Route('/portfolio/show/{id}', name: 'portfolio.show')]
     public function portfolioShow(User $user):Response
     {
+       $user = $this->getUser();
+
+       if ($user !== $user->getId() || !$user) {
+            $this->addFlash('error', 'Vous devez être connecté pour accéder à cette page');
+            return $this->redirectToRoute('login');
+       }
        
         return $this->render('frontOffice/portfolio.html.twig', [
             'user' => $user
