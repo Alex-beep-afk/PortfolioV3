@@ -63,15 +63,17 @@ final class TechnoController extends AbstractController{
         ]);
     }
 
-    // TODO: Finaliser la suppression de la techno en verifiant que la techno n'est pas utilisée dans un projet et si c'est le cas, afficher un message d'erreur et ne pas supprimer la techno
-    // TODO: Afficher un message de succès si la techno est supprimée avec succès
-    // TODO: Afficher un message d'erreur si la techno n'est pas supprimée avec succès
-    // TODO: Verifier le token CSRF
     #[Route('delete/{id}', name: 'techno.delete', methods: ['POST'])]
-    public function delete(Techno $techno): Response{
+    public function delete(Techno $techno, Request $request): Response{
 
-        $this->em->remove($techno);
-        $this->em->flush();
+        if ($this->isCsrfTokenValid('delete' . $techno->getId(), $request->request->get('_token'))) {
+            $this->em->remove($techno);
+            $this->em->flush();
+            $this->addFlash('success', 'Techno supprimée avec succès');
+        } else {
+            $this->addFlash('error', 'Token CSRF invalide');
+        }
+        
         return $this->redirectToRoute('techno.index');
     }
 }

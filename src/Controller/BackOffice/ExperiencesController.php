@@ -19,7 +19,7 @@ final class ExperiencesController extends AbstractController
     private readonly EntityManagerInterface $em
     ){}
 
-    #[Route('/', name: 'experiences.index')]
+    #[Route('/', name: 'experiences.index' , methods: ['GET'])]
     public function index(): Response
     {
         $user = $this->getUser();
@@ -30,7 +30,7 @@ final class ExperiencesController extends AbstractController
 
         ]);
     }
-    #[Route('/new', name: 'experiences.new')]
+    #[Route('/new', name: 'experiences.new' , methods: ['GET', 'POST'])]
     public function new(Request $request): Response
     {
         $user = $this->getUser();
@@ -52,7 +52,7 @@ final class ExperiencesController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'experiences.edit')]
+    #[Route('/{id}/edit', name: 'experiences.edit' , methods: ['GET', 'POST'])]
     public function edit(Request $request, Experience $experience): Response
     {
         $user = $this->getUser();
@@ -72,7 +72,7 @@ final class ExperiencesController extends AbstractController
             'form' => $form
         ]);
     }
-    #[Route('/{id}/delete', name: 'experiences.delete')]
+    #[Route('/{id}/delete', name: 'experiences.delete' , methods: ['POST'])]
     public function delete(Request $request, Experience $experience): Response
     {
         $user = $this->getUser();
